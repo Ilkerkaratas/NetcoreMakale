@@ -11,11 +11,16 @@
     </div>
     <div class="pb-20">
         <table class="data-table table stripe hover nowrap">
+           
+            
+            <a href="/Category/CategoryAdd" class="btn-success"style="float:right;margin-right:25px;margin-bottom:10px">Add Category</a>
             <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">ID</th>
                     <th>Category Name</th>
                     <th>Category Status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,23 +30,17 @@
                         <td class="table-plus">@item.CategoryID</td>
                         <td>@item.CategoryName</td>
                         <td>@item.CategoryStatus</td>
-
-                        <td>
-
-                            
-
-                        </td>
                         <td> <a class="dropdown-item" href="/Category/CategoryEdit/@item.CategoryID"><i class="dw dw-edit-2"></i> Edit</a></td>
                         <td><a class="dropdown-item" href="/Category/CategoryDelete/@item.CategoryID"><i class="dw dw-delete-3"></i> Delete</a></td>
                     </tr>
                 }
-              
+
 
 
 
             </tbody>
         </table>
-        <a href="/Category/CategoryAdd" class="btn-success">Add User</a>
+        
     </div>
 </div>
 

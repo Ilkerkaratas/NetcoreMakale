@@ -69,18 +69,24 @@ namespace NetcoreMakale.Controllers
             var UserLİke = LikeManager.GetByFilter(x => x.MakaleID == MakaleID && x.UserID == userid);
             if (UserLİke is not null)
             {
+                
                 if (UserLİke.Lİke_ != true)
                 {
                     makale._Like = makale._Like + 1;
                     UserLİke.Lİke_ = true;
                     
                 }
-                else
+                else if (makale._Like != 0)
                 {
                     UserLİke.Lİke_ = false;
                     makale._Like = makale._Like - 1;
-                    
                 }
+                else
+                {
+                    makale._Like = makale._Like + 1;
+                    UserLİke.Lİke_ = true;
+                }
+                LikeManager.Update(UserLİke);
             }
             else
             {
@@ -93,7 +99,7 @@ namespace NetcoreMakale.Controllers
             }
 
 
-            LikeManager.Update(UserLİke);
+           
 
             M_Manager.Update(makale);
 

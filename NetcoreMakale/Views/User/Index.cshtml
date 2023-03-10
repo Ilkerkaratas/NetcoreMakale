@@ -5,17 +5,22 @@
 }
 
 <div class="card-box mb-30">
-    <div class="pd-20">
-       
+    <div class="pd-20" style="float:right">
+
     </div>
     <div class="pb-20">
+       
         <table class="data-table table stripe hover nowrap">
+            
+            <br />
+            <a href="/User/AddUser" class="btn-success" style="float:right;margin-right:25px;margin-bottom:10px">Add User</a>
             <thead>
                 <tr>
                     <th class="table-plus datatable-nosort">ID</th>
                     <th>User Name</th>
                     <th>User Rol</th>
-                    
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,12 +30,7 @@
                         <td class="table-plus">@item.UserID</td>
                         <td>@item.KullaniciAdi</td>
                         <td>@item.role</td>
-                        <td>
-                            
-                               
 
-                               
-                        </td>
                         <td><a class="dropdown-item" href="/User/UserEdit/@item.UserID"><i class="dw dw-edit-2"></i> Edit</a></td>
                         <td> <a class="dropdown-item" href="/User/UserDelete/@item.UserID"><i class="dw dw-delete-3"></i> Delete</a></td>
                     </tr>
@@ -38,7 +38,9 @@
 
             </tbody>
         </table>
-        <a href="/User/AddUser" class="btn-success card-box">Add User</a>
+
     </div>
+   
+
 </div>
 

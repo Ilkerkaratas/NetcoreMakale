@@ -14,9 +14,17 @@ namespace NetcoreMakale.ViewComponents.GetIDMakale
         MakaleManager manager = new MakaleManager(new MakaleRepository());
         public IViewComponentResult Invoke(int id )
         {
-            
-
-            ViewBag.MakaleBaşlik = manager.GetByFilter(x=>x.MakaleID==id).MakaleBaşlik;
+            try
+            {
+                var value = manager.GetByFilter(x => x.MakaleID == id);
+                if(value is not null)
+                {
+                    ViewBag.MakaleBaşlik = manager.GetByFilter(x => x.MakaleID == id).MakaleBaşlik;
+                }
+                
+            }
+            catch { }
+                
 
 
             return View();

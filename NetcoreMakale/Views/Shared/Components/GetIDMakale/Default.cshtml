@@ -1,1 +1,4 @@
-﻿<td>@ViewBag.MakaleBaşlik</td>
+﻿@if (@ViewBag.MakaleBaşlik is not null)
+{
+    <td>@ViewBag.MakaleBaşlik</td>
+}
