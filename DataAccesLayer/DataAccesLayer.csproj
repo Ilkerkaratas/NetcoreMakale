@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryDAL.cs" />
+    <Compile Include="Abstract\IGenericDAL.cs" />
     <Compile Include="Abstract\ILikeDAL.cs" />
     <Compile Include="Abstract\IMakaleDAL.cs" />
     <Compile Include="Abstract\IUserDAL.cs" />
