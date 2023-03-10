@@ -14,9 +14,11 @@ namespace NetcoreMakale.Controllers
     public class CategoryController : Controller
     {
         Categorymanager manager = new Categorymanager(new CategoryRepository());
+        MakaleManager makale_manager = new MakaleManager(new MakaleRepository());
         public IActionResult Index()
         {
             var model = manager.GetList();
+            model.Reverse();
             return View(model);
         }
 
@@ -55,6 +57,12 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult CategoryDelete(int id) 
         {
+            var makale = makale_manager.GetByFilter(x => x.CategoryID == id);
+            if (makale is not null)
+            {
+                makale.CategoryID = 0;
+                makale_manager.Update(makale);
+            }
             manager.Delete(x=>x.CategoryID==id);
             return RedirectToAction("");
         }

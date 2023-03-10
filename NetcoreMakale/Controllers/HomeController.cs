@@ -72,18 +72,18 @@ namespace NetcoreMakale.Controllers
                 
                 if (UserLİke.Lİke_ != true)
                 {
-                    makale._Like = makale._Like + 1;
+                    makale._Like++;
                     UserLİke.Lİke_ = true;
                     
                 }
                 else if (makale._Like != 0)
                 {
                     UserLİke.Lİke_ = false;
-                    makale._Like = makale._Like - 1;
+                    makale._Like--;
                 }
                 else
                 {
-                    makale._Like = makale._Like + 1;
+                    makale._Like++;
                     UserLİke.Lİke_ = true;
                 }
                 LikeManager.Update(UserLİke);

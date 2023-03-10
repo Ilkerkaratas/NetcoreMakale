@@ -16,6 +16,7 @@ namespace NetcoreMakale.Controllers
         public IActionResult Index()
         {
             var value = manager.GetList();
+            value.Reverse();
             return View(value);
         }
         public IActionResult YorumDelete(int id)

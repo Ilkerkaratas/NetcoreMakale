@@ -15,12 +15,15 @@ namespace NetcoreMakale.Controllers
     {
         UserManager UserManager = new UserManager(new UserRepository());
         MakaleManager manager = new MakaleManager(new MakaleRepository());
+        LikeManager like_manager = new LikeManager(new LikeRepository());
+        YorumManager yorum_manager = new YorumManager(new YorumRepository());
         public IActionResult Index()
         {
             var user = UserManager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             if (user.role=="Admin")
             {
                 var value = manager.GetList();
+                value.Reverse();
                 return View(value);
             }
             else
@@ -58,8 +61,19 @@ namespace NetcoreMakale.Controllers
         {
             var makale = manager.GetByFilter(x=>x.MakaleID==id);
             var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+           
             if (user.UserID==makale.UserID || user.role=="Admin")
             {
+                var like = like_manager.GetByFilter(x => x.MakaleID == makale.MakaleID);
+                var yorum = yorum_manager.GetByFilter(x => x.MakaleID == makale.MakaleID);
+                if (like is not null)
+                {
+                    like_manager.Delete(x=>x.MakaleID==makale.MakaleID);
+                }
+                if(yorum is not null)
+                {
+                    yorum_manager.Delete(x=>x.MakaleID==makale.MakaleID);
+                }
                 manager.Delete(x => x.MakaleID == id);
             }
             
