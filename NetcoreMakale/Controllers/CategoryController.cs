@@ -55,6 +55,7 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult CategoryDelete(int id) 
         {
+            manager.Delete(x=>x.CategoryID==id);
             return RedirectToAction("");
         }
     }
