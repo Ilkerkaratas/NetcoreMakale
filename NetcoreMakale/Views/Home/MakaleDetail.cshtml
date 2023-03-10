@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewData["Title"] = "MakaleDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EntityLayer.Makale
+
+
+
+
+<section class="container">
+    <div class="page-container">
+        <div class="page-content">
+            <div class="card">
+                <div class="card-header pt-0">
+                    <h3 class="card-title mb-4">@Model.MakaleBaşlik</h3>
+                    <div class="blog-media mb-4">
+                        <img src="~/assets/imgs/blog-6.jpg" alt="" class="w-100">
+                        <a href="#" class="badge badge-primary">#Salupt</a>
+                    </div>
+                    <small class="small text-muted">
+                        <a href="#" class="text-muted">Yazar: @ViewBag.UserName</a>
+                        <span class="px-2">·</span>
+                        <span class="px-2">·</span>
+                      
+                        
+                            @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
+                        {
+                            style = "Color:Black"
+                        })
+                        
+
+
+                    </small>
+                </div>
+                <div class="card-body border-top">
+                    <p class="my-3">@Model.MakaleAciklama</p>
+
+                </div>
+
+                <div class="card-footer">
+
+
+                    @await Component.InvokeAsync("YorumGetir", new { makale = Model })
+
+
+                    <h6 class="mt-5 mb-3 text-center"><a href="#" class="text-dark">Write Your Comment</a></h6>
+                    <hr>
+                    <form method="post" action="MakaleDetail" controller="Home">
+                        <div class="form-row">
+                            <div class="col-12 form-group">
+
+                                <input type="hidden" id="custId" name="MakaleId" value="@Model.MakaleID">
+                                <textarea name="yorum" id="" cols="30" rows="10" class="form-control" placeholder="Enter Your Comment Here"></textarea>
+                            </div>
+                            <div class="form-group col-12">
+                                <button class="btn btn-primary btn-block" type="submit">Post Comment</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h6 class="mt-5 text-center">Related Posts</h6>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card mb-5">
+                        <div class="card-header p-0">
+                            <div class="blog-media">
+                                <img src="assets/imgs/blog-2.jpg" alt="" class="w-100">
+                                <a href="#" class="badge badge-primary">#Placeat</a>
+                            </div>
+                        </div>
+                        <div class="card-body px-0">
+                            <h6 class="card-title mb-2"><a href="#" class="text-dark">Voluptates Corporis Placeat</a></h6>
+                            <small class="small text-muted">
+                                January 20 2019
+                                <span class="px-2">-</span>
+                                <a href="#" class="text-muted">34 Comments</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card mb-5">
+                        <div class="card-header p-0">
+                            <div class="blog-media">
+                                <img src="assets/imgs/blog-3.jpg" alt="" class="w-100">
+                                <a href="#" class="badge badge-primary">#dolores</a>
+                            </div>
+                        </div>
+                        <div class="card-body px-0">
+                            <h6 class="card-title mb-2"><a herf="#" class="text-dark">Dolorum Dolores Itaque</a></h6>
+                            <small class="small text-muted">
+                                January 19 2019
+                                <span class="px-2">-</span>
+                                <a href="#" class="text-muted">64 Comments</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-none d-lg-block">
+                    <div class="card mb-5">
+                        <div class="card-header p-0">
+                            <div class="blog-media">
+                                <img src="assets/imgs/blog-4.jpg" alt="" class="w-100">
+                                <a href="#" class="badge badge-primary">#amet</a>
+                            </div>
+                        </div>
+                        <div class="card-body px-0">
+                            <h6 class="card-title mb-2">Quisquam Dignissimos</h6>
+                            <small class="small text-muted">
+                                January 17 2019
+                                <span class="px-2">-</span>
+                                <a href="#" class="text-muted">93 Comments</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar -->
+        <div class="page-sidebar">
+            <h6 class=" ">Tags</h6>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#iusto</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#quibusdam</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#officia</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#animi</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#mollitia</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#quod</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#ipsa at</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#dolor</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#incidunt</a>
+            <a href="javascript:void(0)" class="badge badge-primary m-1">#possimus</a>
+
+            <div class="ad-card d-flex text-center align-items-center justify-content-center mt-4">
+                <span href="#" class="font-weight-bold">ADS</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+

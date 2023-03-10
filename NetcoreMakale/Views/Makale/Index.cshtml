@@ -1,0 +1,59 @@
+﻿@model List<EntityLayer.Makale>
+@{
+    ViewData["Title"] = "Index";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Shared/AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+}
+
+
+
+
+
+<div class="card-box mb-30">
+
+    <div class="pb-20">
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+                <tr>
+                    <th class="table-plus datatable-nosort">ID</th>
+                    <th>Başlık</th>
+                    <th>Açıklama</th>
+                    <th>Category</th>
+                    <th>Kullanıcı Adı</th>
+                    <th class="datatable-nosort">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="table-plus">@item.MakaleID</td>
+                        <td>@item.MakaleBaşlik</td>
+                        <td>@item.MakaleAciklama</td>
+                        @await Component.InvokeAsync("GetCategoryName", new { id = item.CategoryID })
+                        @await Component.InvokeAsync("GetIDUserName", new { id = item.UserID })
+                        <td>
+                                <a class="dropdown-item" href="/Makale/MakaleEdit/@item.MakaleID"><i class="dw dw-edit-2"></i> Edit</a>
+                        </td>
+                        <td> <a class="dropdown-item" href="/Makale/MakaleDelete/@item.MakaleID"><i class="dw dw-delete-3"></i> Delete</a></td>
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
