@@ -81,6 +81,25 @@ namespace NetcoreMakale.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index","Home");
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            var control = manager.GetByFilter(x=>x.KullaniciAdi==user.KullaniciAdi && x.Sifre==user.Sifre);
+            if (control == null)
+            {
+                user.role = "User";
+                manager.Add(user);
+            }
+            
+
+            return View();
+        }
 
     }
 }
