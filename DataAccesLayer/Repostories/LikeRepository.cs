@@ -14,16 +14,15 @@ namespace DataAccesLayer.Repostories
         {
 
             Context db = new Context();
-            try
-            {
+            
                 var value = db.Set<Like>().Where(x => x.LikeID==id);
-                return true;
-            }
-            catch
+                
+            
+            if(value==null)
             {
                 return false;
             };
-
+            return true;
         }
     }
 }

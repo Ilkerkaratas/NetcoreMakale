@@ -2,6 +2,10 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Makale"
+               asp-action="Index">Makale</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="Account"
                asp-action="LogOut">Logout</a>
         </li>
@@ -16,7 +20,7 @@
             <a class="nav-link text-dark" asp-controller="Account"
                asp-action="Register">Register</a>
         </li>
-        
+
     }
 
 </ul>

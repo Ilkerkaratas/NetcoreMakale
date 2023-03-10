@@ -10,18 +10,22 @@ namespace DataAccesLayer.Repostories
 {
     public class UserRepository : GenericRepostory<User>, IUserDAL
     {
-        public bool Varmi(string ad ,string Sifre)
+        public bool Varmi(string ad, string Sifre)
         {
             Context db = new Context();
-            try
-            {
-                var value = db.Set<User>().Where(x => x.KullaniciAdi == ad && x.Sifre == Sifre);
-                return true;
-            }
-            catch 
+
+            var value = db.Set<User>().Where(x => x.KullaniciAdi == ad && x.Sifre == Sifre);
+
+
+            if (value == null)
             {
                 return false;
-            };
+            }
+            else
+            {
+                return true;
+            }
+            
         }
     }
 }

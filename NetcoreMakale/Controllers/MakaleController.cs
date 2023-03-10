@@ -65,5 +65,20 @@ namespace NetcoreMakale.Controllers
             
             return RedirectToAction("");
         }
+        [HttpGet]
+        public IActionResult MakaleAdd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult MakaleAdd(Makale makale)
+        {
+            var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+            makale.MakaleStatus = true;
+            makale._Like = 0;
+            makale.UserID = user.UserID;
+            manager.Add(makale);
+            return View();
+        }
     }
 }

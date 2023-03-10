@@ -31,38 +31,45 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult Login(string Ad, string Sifre)
         {
-            if (string.IsNullOrEmpty(Ad) && string.IsNullOrEmpty(Sifre))
+            try
             {
-                return RedirectToAction("Login");
-            }
-           
-            ClaimsIdentity identity = null;
-            bool isAuthenticate = false;
-            
-            if (manager.Varmi(Ad, Sifre))
-            {
-                var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre==Sifre);
-                
-                identity = new ClaimsIdentity(new[]
+                if (string.IsNullOrEmpty(Ad) && string.IsNullOrEmpty(Sifre))
                 {
+                    return RedirectToAction("Login");
+                }
+
+                ClaimsIdentity identity = null;
+                bool isAuthenticate = false;
+                var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre == Sifre);
+                if (user is not null)
+                {
+                    
+
+                    identity = new ClaimsIdentity(new[]
+                    {
                     new Claim(ClaimTypes.Name,user.KullaniciAdi),
                     new Claim(ClaimTypes.Role,user.role),
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
-                isAuthenticate = true;
+                    isAuthenticate = true;
+                }
+                if (isAuthenticate)
+                {
+                    var principal = new ClaimsPrincipal(identity);
+                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
             }
-            if (isAuthenticate)
+            catch
             {
-                var principal = new ClaimsPrincipal(identity);
-                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                if (User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                
+
             }
             return View();
         }
