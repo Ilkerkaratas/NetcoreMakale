@@ -37,7 +37,7 @@ namespace NetcoreMakale.Controllers
         public async Task<IActionResult> UserEdit(User user, IFormFile file)
         {
             string eimage = user.KullaniciResim;
-            string ImageName = User.Identity.Name + file.FileName;
+            string ImageName =file.FileName;
          
             if (eimage != ImageName)
             {
@@ -109,7 +109,7 @@ namespace NetcoreMakale.Controllers
                 if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                 { 
                     string ImageName = $@"{Guid.NewGuid()}.jpeg";
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", User.Identity.Name + file.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
 
                     // using Kullanmak demek.
                     //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
