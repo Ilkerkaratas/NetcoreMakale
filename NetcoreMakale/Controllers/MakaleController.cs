@@ -92,7 +92,7 @@ namespace NetcoreMakale.Controllers
             makale._Like = 0;
             makale.UserID = user.UserID;
             manager.Add(makale);
-            return View();
+            return RedirectToAction("") ;
         }
     }
 }

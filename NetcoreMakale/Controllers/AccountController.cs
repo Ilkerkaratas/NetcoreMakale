@@ -49,6 +49,7 @@ namespace NetcoreMakale.Controllers
                     {
                     new Claim(ClaimTypes.Name,user.KullaniciAdi),
                     new Claim(ClaimTypes.Role,user.role),
+                    
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
                     isAuthenticate = true;
                 }

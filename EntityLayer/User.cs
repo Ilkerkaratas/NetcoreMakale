@@ -14,6 +14,7 @@ namespace EntityLayer
 
         [StringLength(50)]
         public string KullaniciAdi { get; set; }
+        public string KullaniciResim { get; set; }
 
         [StringLength(50)]
         public string Sifre { get; set; }

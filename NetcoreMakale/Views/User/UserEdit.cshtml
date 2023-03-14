@@ -5,9 +5,12 @@
 }
 
 <div class="pd-20 card-box mb-30">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" asp-action="UserEdit" asp-controller="User">
+        <label class="col-sm-12 col-md-2 col-form-label" name="img">Resim</label>
+        <input type="file" id="file" name="file" class="form-control" />
         <div class="form-group row">
             <input type="hidden" asp-for="UserID" value="@Model.UserID" />
+            <input type="hidden" asp-for="KullaniciResim" value="@Model.KullaniciResim" />
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="KullaniciAdi" placeholder="@Model.KullaniciAdi" value="@Model.KullaniciAdi">
@@ -22,11 +25,11 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Role</label>
             <div class="col-sm-12 col-md-10">
-                <select asp-for="role" class="custom-select col-12" >
+                <select asp-for="role" class="custom-select col-12">
                     <option selected="" value="@Model.role">Yazar</option>
                     <option value="Admin">Admin</option>
                     <option value="User">User</option>
-                   
+
                 </select>
             </div>
         </div>

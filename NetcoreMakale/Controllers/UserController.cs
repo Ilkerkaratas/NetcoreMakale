@@ -2,9 +2,12 @@
 using DataAccesLayer.Repostories;
 using EntityLayer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetcoreMakale.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,28 +26,63 @@ namespace NetcoreMakale.Controllers
             value.Reverse();
             return View(value);
         }
-      
+
         [HttpGet]
         public IActionResult UserEdit(int id)
         {
-            var value = user_manager.GetByFilter(x=>x.UserID==id);
+            var value = user_manager.GetByFilter(x => x.UserID == id);
             return View(value);
         }
         [HttpPost]
-        public IActionResult UserEdit(User user)
+        public async Task<IActionResult> UserEdit(User user, IFormFile file)
         {
+            string eimage = user.KullaniciResim;
+            string ImageName = User.Identity.Name + file.FileName;
+         
+            if (eimage != ImageName)
+            {
+                if (file != null)
+                {
+                    if (eimage != null)
+                    {
+                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
+                    }
+                    if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
+                    {
+                        ImageName = $@"{Guid.NewGuid()}.jpeg";
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
+
+                        // using Kullanmak demek.
+                        //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        user.KullaniciResim = ImageName;
+
+                    }
+                }
+                
+            }
+            if (ImageName != null)
+            {
+                eimage = ImageName;
+            }
+
+            user.KullaniciResim = eimage;
+
             user_manager.Update(user);
             var value = user_manager.GetByFilter(x => x.UserID == user.UserID);
             return View(value);
         }
         public IActionResult UserDelete(int id)
         {
-            var like = like_manager.GetByFilter(x=>x.UserID==id);
-            var makale=makale_manager.GetByFilter(x => x.UserID == id);
-            var yorum=yorum_manager.GetByFilter(x => x.UserID == id);
+            var like = like_manager.GetByFilter(x => x.UserID == id);
+            var makale = makale_manager.GetByFilter(x => x.UserID == id);
+            var yorum = yorum_manager.GetByFilter(x => x.UserID == id);
             if (like is not null)
             {
-                like_manager.Delete(x=>x.UserID==id);
+                like_manager.Delete(x => x.UserID == id);
             }
             if (makale is not null)
             {
@@ -54,7 +92,7 @@ namespace NetcoreMakale.Controllers
             {
                 yorum_manager.Delete(x => x.UserID == id);
             }
-            user_manager.Delete(x=>x.UserID==id);
+            user_manager.Delete(x => x.UserID == id);
             return RedirectToAction("");
         }
         [HttpGet]
@@ -64,8 +102,27 @@ namespace NetcoreMakale.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public async Task<IActionResult> AddUser(User user, IFormFile file)
         {
+            if (file != null)
+            {
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
+                { 
+                    string ImageName = $@"{Guid.NewGuid()}.jpeg";
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", User.Identity.Name + file.FileName);
+
+                    // using Kullanmak demek.
+                    //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    user.KullaniciResim = User.Identity.Name + file.FileName;
+                }
+            }
+
+
+
             user_manager.Add(user);
 
             return RedirectToAction("");

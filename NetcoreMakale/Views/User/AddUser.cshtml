@@ -7,12 +7,14 @@
 
 
 <div class="pd-20 card-box mb-30">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" asp-action="AddUser" asp-controller="User">
         <div class="form-group row">
-            <input type="hidden" asp-for="UserID"  />
+            <input type="hidden" asp-for="UserID" />
+            <label class="col-sm-12 col-md-2 col-form-label" name="img">Resim</label>
+            <input type="file" id="file" name="file" class="form-control" />
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" asp-for="KullaniciAdi" >
+                <input class="form-control" type="text" asp-for="KullaniciAdi">
             </div>
         </div>
         <div class="form-group row">

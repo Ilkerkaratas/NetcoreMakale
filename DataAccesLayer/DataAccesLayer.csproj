@@ -178,6 +178,10 @@
     <Compile Include="Migrations\20230308061802_mig1.designer.cs">
       <DependentUpon>20230308061802_mig1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20230314110743_mig2.cs" />
+    <Compile Include="Migrations\20230314110743_mig2.designer.cs">
+      <DependentUpon>20230314110743_mig2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ContextModelSnapshot.cs" />
     <Compile Include="Repostories\CategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
