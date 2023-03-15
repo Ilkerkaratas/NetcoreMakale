@@ -14,10 +14,10 @@ namespace NetcoreMakale.ViewComponents.YorumGetir
         UserManager User_Manager = new UserManager(new UserRepository());
         public IViewComponentResult Invoke(Makale makale)
         {
-
+            
             ViewBag.makale = makale;
             var values = yorumManager.GetList(x => x.MakaleID == makale.MakaleID);
-
+            
             return View(values);
         }
     }

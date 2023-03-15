@@ -2,9 +2,11 @@
 using DataAccesLayer.Repostories;
 using EntityLayer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -51,8 +53,44 @@ namespace NetcoreMakale.Controllers
            
         }
         [HttpPost]
-        public IActionResult MakaleEdit(Makale makale)
+        public async Task<IActionResult> MakaleEdit(Makale makale,IFormFile file)
         {
+            string eimage = makale.MakaleResim;
+            string ImageName = file.FileName;
+
+            if (eimage != ImageName)
+            {
+                if (file != null)
+                {
+                    if (eimage != null)
+                    {
+                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
+                    }
+                    if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
+                    {
+                        ImageName = $@"{Guid.NewGuid()}.jpeg";
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
+
+                        // using Kullanmak demek.
+                        //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        makale.MakaleResim = ImageName;
+
+                    }
+                }
+
+            }
+            if (ImageName != null)
+            {
+                eimage = ImageName;
+            }
+
+            makale.MakaleResim = eimage;
+
+
             manager.Update(makale);
 
             return RedirectToAction("");
@@ -64,15 +102,27 @@ namespace NetcoreMakale.Controllers
            
             if (user.UserID==makale.UserID || user.role=="Admin")
             {
-                var like = like_manager.GetByFilter(x => x.MakaleID == makale.MakaleID);
-                var yorum = yorum_manager.GetByFilter(x => x.MakaleID == makale.MakaleID);
+                var like = like_manager.GetList(x => x.MakaleID == makale.MakaleID);
+                var yorum = yorum_manager.GetList(x => x.MakaleID == makale.MakaleID);
                 if (like is not null)
                 {
-                    like_manager.Delete(x=>x.MakaleID==makale.MakaleID);
+                    foreach (var item in like)
+                    {
+                        like_manager.Delete(x => x.MakaleID == item.MakaleID);
+                    }
+                    
                 }
                 if(yorum is not null)
                 {
-                    yorum_manager.Delete(x=>x.MakaleID==makale.MakaleID);
+                    foreach (var item in yorum)
+                    {
+                        yorum_manager.Delete(x => x.MakaleID == item.MakaleID);
+                    }
+                    
+                }
+                if (makale.MakaleResim is not null)
+                {
+                    System.IO.File.Delete(@"wwwroot\UserImg\" + makale.MakaleResim);
                 }
                 manager.Delete(x => x.MakaleID == id);
             }
@@ -85,12 +135,28 @@ namespace NetcoreMakale.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult MakaleAdd(Makale makale)
+        public async Task<IActionResult> MakaleAdd(Makale makale,IFormFile file)
         {
             var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
             makale.MakaleStatus = true;
             makale._Like = 0;
             makale.UserID = user.UserID;
+            if (file != null)
+            {
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
+                {
+                    string ImageName = $@"{Guid.NewGuid()}.jpeg";
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", ImageName);
+
+                    // using Kullanmak demek.
+                    //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    makale.MakaleResim = ImageName;
+                }
+            }
             manager.Add(makale);
             return RedirectToAction("") ;
         }

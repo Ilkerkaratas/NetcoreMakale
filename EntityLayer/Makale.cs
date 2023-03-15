@@ -16,6 +16,7 @@ namespace EntityLayer
 
         [StringLength(50)]
         public string MakaleBaşlik { get; set; }
+        public string MakaleResim { get; set; }
 
         [Column(TypeName = "text")]
         public string MakaleAciklama { get; set; }

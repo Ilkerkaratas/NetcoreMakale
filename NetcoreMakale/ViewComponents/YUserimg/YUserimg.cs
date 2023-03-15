@@ -7,20 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetcoreMakale.ViewComponents.GetYorum_User
+namespace NetcoreMakale.ViewComponents.YUserimg
 {
-    public class GetYorum_User:ViewComponent
+    public class YUserimg:ViewComponent
     {
-       
         UserManager user = new UserManager(new UserRepository());
         public IViewComponentResult Invoke(Yorum yorum)
         {
 
 
             var values = user.GetByFilter(x => x.UserID == yorum.UserID);
+            ViewBag.img = values.KullaniciResim;
 
-
-            return View(values);
+            return View();
         }
     }
 }

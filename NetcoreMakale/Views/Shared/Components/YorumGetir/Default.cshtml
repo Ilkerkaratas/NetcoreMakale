@@ -3,15 +3,17 @@
 <hr>
 @foreach (var item in Model)
 {
+    
+    
+<div class="media mt-4">
+    @await Component.InvokeAsync("YUserimg", new { yorum = item })
+    <div class="media-body">
 
-    <div class="media mt-4">
-        <div class="media-body">
+        @await Component.InvokeAsync("GetYorum_User", new { yorum = item })
+        <p>@item.yorum_text</p>
 
-            @await Component.InvokeAsync("GetYorum_User", new { yorum = item })
-            <p>@item.yorum_text</p>
-
-        </div>
     </div>
+</div>
 
 }
 

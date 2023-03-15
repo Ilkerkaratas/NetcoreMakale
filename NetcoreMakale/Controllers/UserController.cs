@@ -77,21 +77,35 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult UserDelete(int id)
         {
-            var like = like_manager.GetByFilter(x => x.UserID == id);
-            var makale = makale_manager.GetByFilter(x => x.UserID == id);
-            var yorum = yorum_manager.GetByFilter(x => x.UserID == id);
+            var like = like_manager.GetList(x => x.UserID == id);
+            var makale = makale_manager.GetList(x => x.UserID == id);
+            var yorum = yorum_manager.GetList(x => x.UserID == id);
+            var user = user_manager.GetByFilter(x=>x.UserID == id);
             if (like is not null)
             {
-                like_manager.Delete(x => x.UserID == id);
+                foreach (var item in like)
+                {
+                    like_manager.Delete(x => x.UserID ==item.UserID);
+                }
+                
             }
             if (makale is not null)
             {
-                makale_manager.Delete(x => x.UserID == id);
+                foreach (var item in makale)
+                {
+                    makale_manager.Delete(x => x.UserID == item.MakaleID);
+                }
+                
             }
             if (yorum is not null)
             {
-                yorum_manager.Delete(x => x.UserID == id);
+                foreach (var item in yorum)
+                {
+                    yorum_manager.Delete(x => x.UserID == item.YorumID);
+                }
             }
+            System.IO.File.Delete(@"wwwroot\UserImg\" + user.KullaniciResim);
+
             user_manager.Delete(x => x.UserID == id);
             return RedirectToAction("");
         }
@@ -117,7 +131,7 @@ namespace NetcoreMakale.Controllers
                     {
                         await file.CopyToAsync(stream);
                     }
-                    user.KullaniciResim = User.Identity.Name + file.FileName;
+                    user.KullaniciResim = ImageName;
                 }
             }
 

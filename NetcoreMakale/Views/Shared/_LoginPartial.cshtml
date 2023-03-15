@@ -9,6 +9,9 @@
             <a class="nav-link text-dark" asp-controller="Account"
                asp-action="LogOut">Logout</a>
         </li>
+        <a asp-controller="User" asp-action="UserOp">
+            <img src="~/UserImg/@await Component.InvokeAsync("GetUserimg") " class="circle-35">
+        </a>
     }
     else
     {
@@ -20,6 +23,7 @@
             <a class="nav-link text-dark" asp-controller="Account"
                asp-action="Register">Register</a>
         </li>
+
 
     }
 
