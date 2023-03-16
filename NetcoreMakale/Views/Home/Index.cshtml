@@ -1,6 +1,7 @@
 ﻿.
 @{
     ViewData["Title"] = "Home Page";
+    int sayac = 0;
 }
 
 @model List<EntityLayer.Makale>
@@ -9,8 +10,11 @@
     <div class="page-content">
         <hr>
         <div class="row">
+
             @foreach (var item in Model)
             {
+                if (sayac == 8) { break; }
+                sayac++;
                 <div class="col-lg-6">
                     <div class="card text-center mb-5">
                         <div class="card-header p-0">
@@ -38,7 +42,7 @@
                             }
                             else
                             {
-                        <button onclick="myfunction()"class="btn btn-outline-dark btn-sm"> Devamını Oku</button>
+                                <button onclick="myfunction()" class="btn btn-outline-dark btn-sm"> Devamını Oku</button>
                             }
                         </div>
                     </div>
@@ -52,8 +56,7 @@
     </div>
 </div>
 <script>
-    function myfunction()
-    {
+    function myfunction() {
 
         alert("Lütfen Giriş Yapın!");
 
