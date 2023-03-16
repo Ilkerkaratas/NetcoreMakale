@@ -27,7 +27,9 @@ namespace NetcoreMakale.Controllers
         LikeManager LikeManager = new LikeManager(new LikeRepository());
 
         public IActionResult Index()
+            
         {
+           
             var model = M_Manager.GetList();
             model.Reverse();
             return View(model);
@@ -36,7 +38,9 @@ namespace NetcoreMakale.Controllers
         [HttpGet]
         public IActionResult MakaleDetail(int id)
         {
-            
+            var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+            var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID==id);
+            ViewBag.like = like.Lİke_;
             var model = M_Manager.GetByFilter(x => x.MakaleID == id);
             var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
             ViewBag.UserName = user.KullaniciAdi;
@@ -46,7 +50,10 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult MakaleDetail(int MakaleId, string yorum)
         {
-
+            //giriş yapan kullanıcı
+            var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+            var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID == MakaleId);
+            ViewBag.like = like.Lİke_;
             int userID = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name).UserID;
             Yorum y = new Yorum();
             y.MakaleID = MakaleId;

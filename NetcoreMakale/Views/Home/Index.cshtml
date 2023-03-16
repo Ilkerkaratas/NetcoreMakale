@@ -1,5 +1,4 @@
-﻿
-.
+﻿.
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -17,17 +16,30 @@
                         <div class="card-header p-0">
                             <div class="blog-media">
                                 <img src="~/MakaleImg/@item.MakaleResim" alt="" class="w-100">
-                                <a href="#" class="badge badge-primary">#Placeat</a>
+
                             </div>
                         </div>
                         <div class="card-body px-0">
                             <h5 class="card-title mb-2">@item.MakaleBaşlik</h5>
-
-                            <p class="my-2">@item.MakaleAciklama</p>
+                            @if (item.MakaleAciklama.Length >= 100)
+                            {
+                                <p class="my-2">@item.MakaleAciklama.Substring(0, 100)</p>
+                            }
+                            else
+                            {
+                                <p class="my-2">@item.MakaleAciklama</p>
+                            }
                         </div>
 
                         <div class="card-footer p-0 text-center">
-                            <a href="/Home/MakaleDetail/@item.MakaleID" class="btn btn-outline-dark btn-sm">READ MORE</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="/Home/MakaleDetail/@item.MakaleID" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
+                            }
+                            else
+                            {
+                        <button onclick="myfunction()"class="btn btn-outline-dark btn-sm"> Devamını Oku</button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -36,6 +48,15 @@
 
         </div>
 
-        <button class="btn btn-primary btn-block my-4">Load More Posts</button>
+
     </div>
 </div>
+<script>
+    function myfunction()
+    {
+
+        alert("Lütfen Giriş Yapın!");
+
+    }
+
+</script>

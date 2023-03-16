@@ -16,18 +16,19 @@
                     <h3 class="card-title mb-4">@Model.MakaleBaşlik</h3>
                     <div class="blog-media mb-4">
                         <img src="~/MakaleImg/@Model.MakaleResim" alt="" class="w-100">
-                        <a href="#" class="badge badge-primary">#Salupt</a>
+                        
                     </div>
                     <small class="small text-muted">
                         <a href="#" class="text-muted">Yazar: @ViewBag.UserName</a>
-                        
-                      
-                        
-                            @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
-                        {
-                            style = "Color:Black"
-                        })
-                        
+
+
+
+
+                        @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
+                   {
+                       style = "Color:" + color(ViewBag.like)
+                   })
+
 
 
                     </small>
@@ -63,17 +64,7 @@
         </div>
         <!-- Sidebar -->
         <div class="page-sidebar">
-            <h6 class=" ">Tags</h6>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#iusto</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#quibusdam</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#officia</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#animi</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#mollitia</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#quod</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#ipsa at</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#dolor</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#incidunt</a>
-            <a href="javascript:void(0)" class="badge badge-primary m-1">#possimus</a>
+            
 
             <div class="ad-card d-flex text-center align-items-center justify-content-center mt-4">
                 <span href="#" class="font-weight-bold">ADS</span>
@@ -83,5 +74,16 @@
 </section>
 
 
-
-
+@{
+    string color(bool x)
+    {
+        if (x == false)
+        {
+            return "Black";
+        }
+        else
+        {
+            return "Blue";
+        }
+    }
+}

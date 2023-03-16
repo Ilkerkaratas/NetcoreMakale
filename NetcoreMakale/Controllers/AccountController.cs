@@ -25,17 +25,19 @@ namespace NetcoreMakale.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            @ViewBag.fonk = 1;
             return View();
         }
 
         [HttpPost]
         public IActionResult Login(string Ad, string Sifre)
         {
+            @ViewBag.fonk = 0;
             try
             {
                 if (string.IsNullOrEmpty(Ad) && string.IsNullOrEmpty(Sifre))
                 {
-                    return RedirectToAction("Login");
+                    return View();
                 }
 
                 ClaimsIdentity identity = null;
@@ -43,7 +45,7 @@ namespace NetcoreMakale.Controllers
                 var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre == Sifre);
                 if (user is not null)
                 {
-                    
+                    @ViewBag.fonk = 1;
 
                     identity = new ClaimsIdentity(new[]
                     {
@@ -99,7 +101,7 @@ namespace NetcoreMakale.Controllers
             }
             
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
     }

@@ -1,6 +1,6 @@
-﻿@model EntityLayer.User  
+﻿@model EntityLayer.User
 @{
-    ViewData["Title"] = "UserEdit";
+    ViewData["Title"] = "UserOp";
     if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/AdminLayout.cshtml";
@@ -9,14 +9,20 @@
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
+
 }
+
 
 <div class="pd-20 card-box mb-30">
     <form method="post" enctype="multipart/form-data" asp-action="UserEdit" asp-controller="User">
-        
+
         <div class="form-group row">
-            <<img src="~/UserImg/@Model.KullaniciResim" class="circle-35" style="width:auto;height:200px" />
-            <input type="file" id="file" name="file" class="form-control col-6" />
+
+
+
+            <img src="~/UserImg/@Model.KullaniciResim" class="circle-35" style="width:auto;height:200px" />
+            <label class="col-sm-12 col-md-2 col-form-label" name="img">Resim</label>
+            <input type="file" id="file" name="file" class="form-control" />
             <input type="hidden" asp-for="UserID" value="@Model.UserID" />
             <input type="hidden" asp-for="KullaniciResim" value="@Model.KullaniciResim" />
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
@@ -30,19 +36,26 @@
                 <input class="form-control" asp-for="Sifre" type="text" placeholder="@Model.Sifre" value="@Model.Sifre">
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-12 col-md-2 col-form-label">Role</label>
-            <div class="col-sm-12 col-md-10">
-                <select asp-for="role" class="custom-select col-12">
-                    <option selected="" value="@Model.role">Yazar</option>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
+        @if (User.Identity.Name == "Admin")
+        {
+            <div class="form-group row">
+                <label class="col-sm-12 col-md-2 col-form-label">Role</label>
+                <div class="col-sm-12 col-md-10">
+                    <select asp-for="role" class="custom-select col-12">
+                        <option selected="" value="@Model.role">Yazar</option>
+                        <option value="Admin">Admin</option>
+                        <option value="User">User</option>
 
-                </select>
+                    </select>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <input type="hidden" asp-for="role" value="@Model.role" />
+        }
         <button class="btn-success" type="submit">Kaydet</button>
-        <button class="btn-danger"><a href="/User/UserDelete/@Model.UserID">Kullanıcıyı Sil</a></button>
+        <button class="btn-danger"><a href="/User/UserDelete/@Model.UserID" style="color:white">Kullanıcıyı Sil</a></button>
 
     </form>
     <div class="collapse collapse-box" id="basic-form1">
@@ -119,4 +132,3 @@
         </div>
     </div>
 </div>
-

@@ -13,81 +13,87 @@ using System.Threading.Tasks;
 
 namespace NetcoreMakale.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class UserController : Controller
     {
         UserManager user_manager = new UserManager(new UserRepository());
         LikeManager like_manager = new LikeManager(new LikeRepository());
         YorumManager yorum_manager = new YorumManager(new YorumRepository());
         MakaleManager makale_manager = new MakaleManager(new MakaleRepository());
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var value = user_manager.GetList();
             value.Reverse();
             return View(value);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UserEdit(int id)
         {
             var value = user_manager.GetByFilter(x => x.UserID == id);
             return View(value);
         }
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public async Task<IActionResult> UserEdit(User user, IFormFile file)
         {
             string eimage = user.KullaniciResim;
-            string ImageName =file.FileName;
-         
-            if (eimage != ImageName)
+            if (file != null)
             {
-                if (file != null)
+                string ImageName = file.FileName;
+                if (eimage != ImageName)
                 {
-                    if (eimage != null)
-                    {
-                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
-                    }
-                    if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
-                    {
-                        ImageName = $@"{Guid.NewGuid()}.jpeg";
-                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
 
-                        // using Kullanmak demek.
-                        //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
-                        using (var stream = new FileStream(path, FileMode.Create))
+
+                    if (file != null)
+                    {
+                        if (eimage != null)
                         {
-                            await file.CopyToAsync(stream);
+                            System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
                         }
-                        user.KullaniciResim = ImageName;
+                        if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
+                        {
+                            ImageName = $@"{Guid.NewGuid()}.jpeg";
+                            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
 
+                            // using Kullanmak demek.
+                            //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await file.CopyToAsync(stream);
+                            }
+                            user.KullaniciResim = ImageName;
+
+                        }
                     }
-                }
-                
-            }
-            if (ImageName != null)
-            {
-                eimage = ImageName;
-            }
 
+                }
+                if (ImageName != null)
+                {
+                    eimage = ImageName;
+                }
+            }
             user.KullaniciResim = eimage;
 
             user_manager.Update(user);
             var value = user_manager.GetByFilter(x => x.UserID == user.UserID);
             return View(value);
         }
+        [Authorize(Roles = "Admin,User")]
         public IActionResult UserDelete(int id)
         {
             var like = like_manager.GetList(x => x.UserID == id);
             var makale = makale_manager.GetList(x => x.UserID == id);
             var yorum = yorum_manager.GetList(x => x.UserID == id);
-            var user = user_manager.GetByFilter(x=>x.UserID == id);
+            var user = user_manager.GetByFilter(x => x.UserID == id);
             if (like is not null)
             {
                 foreach (var item in like)
                 {
-                    like_manager.Delete(x => x.UserID ==item.UserID);
+                    like_manager.Delete(x => x.UserID == item.UserID);
                 }
-                
+
             }
             if (makale is not null)
             {
@@ -95,7 +101,7 @@ namespace NetcoreMakale.Controllers
                 {
                     makale_manager.Delete(x => x.UserID == item.MakaleID);
                 }
-                
+
             }
             if (yorum is not null)
             {
@@ -107,14 +113,24 @@ namespace NetcoreMakale.Controllers
             System.IO.File.Delete(@"wwwroot\UserImg\" + user.KullaniciResim);
 
             user_manager.Delete(x => x.UserID == id);
-            return RedirectToAction("");
+            if (User.IsInRole("Admin"))
+            {
+               
+                return RedirectToAction("");
+            }
+            else
+            {
+               return RedirectToAction("Home","Index");
+            }
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddUser()
         {
 
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AddUser(User user, IFormFile file)
         {
@@ -141,7 +157,13 @@ namespace NetcoreMakale.Controllers
 
             return RedirectToAction("");
         }
-
-
+        [Authorize(Roles = "Admin,User")]
+        [HttpGet]
+        public IActionResult UserOp()
+        {
+            var value = user_manager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+            return View(value);
+        }
+      
     }
 }
