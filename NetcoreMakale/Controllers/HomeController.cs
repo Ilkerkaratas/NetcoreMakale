@@ -40,7 +40,14 @@ namespace NetcoreMakale.Controllers
         {
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID==id);
-            ViewBag.like = like.Lİke_;
+            if (like is not null)
+            {
+                ViewBag.like = like.Lİke_;
+            }
+            else
+            {
+                ViewBag.like = false;
+            }
             var model = M_Manager.GetByFilter(x => x.MakaleID == id);
             var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
             ViewBag.UserName = user.KullaniciAdi;
@@ -67,6 +74,7 @@ namespace NetcoreMakale.Controllers
             return View(model);
         }
         [Authorize(Roles = "User,Admin")]
+        
         public IActionResult MakaleLike(int MakaleID)
         {
             

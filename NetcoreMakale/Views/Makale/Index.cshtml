@@ -22,9 +22,9 @@
 
     </div>
     <div class="pb-20">
-       
+
         <table class="data-table table stripe hover nowrap">
-            
+
             <br />
             <a href="/Makale/MakaleAdd" class="btn-success hover" style="float:right;margin-right:25px;margin-bottom:10px">Makale Ekle</a>
             <thead>
@@ -44,7 +44,16 @@
                     <tr>
                         <td class="table-plus">@item.MakaleID</td>
                         <td>@item.MakaleBaşlik</td>
-                        <td>@item.MakaleAciklama</td>
+
+                        @if (item.MakaleAciklama.Length <= 30)
+                        {
+                            <td>@item.MakaleAciklama<a href="/Home/MakaleDetail/@item.MakaleID">...</a></td>
+                        }
+                        else
+                        {
+                            <td>@item.MakaleAciklama.Substring(0,30)<a href="/Home/MakaleDetail/@item.MakaleID">...</a></td>
+                        }
+
                         @await Component.InvokeAsync("GetCategoryName", new { id = item.CategoryID })
                         @await Component.InvokeAsync("GetIDUserName", new { id = item.UserID })
                         <td>

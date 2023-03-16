@@ -16,18 +16,18 @@
                     <h3 class="card-title mb-4">@Model.MakaleBaşlik</h3>
                     <div class="blog-media mb-4">
                         <img src="~/MakaleImg/@Model.MakaleResim" alt="" class="w-100">
-                        
+
                     </div>
                     <small class="small text-muted">
                         <a href="#" class="text-muted">Yazar: @ViewBag.UserName</a>
 
 
 
-
-                        @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
-                   {
-                       style = "Color:" + color(ViewBag.like)
-                   })
+                       
+                            @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
+                       {
+                           style = "Color:" + color(ViewBag.like)
+                       })
 
 
 
@@ -64,7 +64,7 @@
         </div>
         <!-- Sidebar -->
         <div class="page-sidebar">
-            
+
 
             <div class="ad-card d-flex text-center align-items-center justify-content-center mt-4">
                 <span href="#" class="font-weight-bold">ADS</span>
