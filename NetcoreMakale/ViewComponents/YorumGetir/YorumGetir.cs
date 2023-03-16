@@ -10,6 +10,7 @@ namespace NetcoreMakale.ViewComponents.YorumGetir
     public class YorumGetir:ViewComponent
     {
         //Makale ID ye göre yorumları getirir.
+        //makaledetail sayfasında bir makale modeli kullandığım için yorumları viewcomponentle taşımak zorunda kaldım.
         YorumManager yorumManager = new YorumManager(new YorumRepository());
         UserManager User_Manager = new UserManager(new UserRepository());
         public IViewComponentResult Invoke(Makale makale)

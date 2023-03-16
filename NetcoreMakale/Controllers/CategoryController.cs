@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace NetcoreMakale.Controllers
 {
     [Authorize(Roles = "Admin")]
+    //sadece rolü admin olan kullanıcılar kategori ekleyebilir.
     public class CategoryController : Controller
     {
         Categorymanager manager = new Categorymanager(new CategoryRepository());

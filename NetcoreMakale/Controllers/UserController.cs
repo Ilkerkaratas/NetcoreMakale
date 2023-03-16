@@ -16,6 +16,9 @@ namespace NetcoreMakale.Controllers
     
     public class UserController : Controller
     {
+
+        //admin tüm kullanıcıları görebeilir silebilir ve rollerini değiştirebilir
+        //kullanıcılar sadece kendi bilgilerini güncelleyebilie ancak rollerini değiştiremezler.
         UserManager user_manager = new UserManager(new UserRepository());
         LikeManager like_manager = new LikeManager(new LikeRepository());
         YorumManager yorum_manager = new YorumManager(new YorumRepository());

@@ -14,7 +14,7 @@ namespace NetcoreMakale.ViewComponents.GetUserimg
         UserManager user = new UserManager(new UserRepository());
         public IViewComponentResult Invoke()
         {
-
+            //layout sayfasına model gönderemediğim için giriş yapan kullanıcının resim bilgisini bu yolla taşıdım.
 
             var values = user.GetByFilter(x => x.KullaniciAdi==User.Identity.Name);
             ViewBag.img = values.KullaniciResim;

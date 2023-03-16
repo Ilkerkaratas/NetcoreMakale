@@ -11,7 +11,7 @@ namespace NetcoreMakale.ViewComponents.CategoryList
     public class CategoryList:ViewComponent
     {
         Categorymanager manager = new Categorymanager(new CategoryRepository());
-        //Category Id ye Göre Category İsmi Getir
+        //Veri tabanında kayıtlı olan bütün kategori bilgilerini görünüme gönderir.
         public IViewComponentResult Invoke()
         {
             var value = manager.GetList();

@@ -13,15 +13,13 @@ using EntityLayer;
 
 namespace NetcoreMakale.Controllers
 {
+    //kayıt giriş ve çıkış işlmeleri
     public class AccountController : Controller
     {
         
        
         UserManager manager = new UserManager(new UserRepository());
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
         [HttpGet]
         public IActionResult Login()
         {

@@ -12,6 +12,8 @@ namespace NetcoreMakale.Controllers
     [Authorize(Roles = "Admin")]
     public class YorumController : Controller
     {
+        //Admin yorumları admin panalden görebilir ve silebilir.
+        //kullanıcıların kendi yorumlarını silmesi iiçin düzenleme yapılacak.
         YorumManager manager = new YorumManager(new YorumRepository());
         public IActionResult Index()
         {

@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 namespace NetcoreMakale.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    //admin ve user ların kullanabileceği bir makale işlemleri sayfası layoutları admin veya user olmasına göre değişiyor.
+    //Rolü user olanlar sadece kendi makaleleriyle işlemler yapabiliyor.
+    //Admin rolü olan kullanıcı bütün makalelere erişebilir ve onlarla ilgili tüm işlemleri yapabilir.
     public class MakaleController : Controller
     {
         UserManager UserManager = new UserManager(new UserRepository());

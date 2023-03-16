@@ -14,6 +14,7 @@ namespace NetcoreMakale.ViewComponents.GetIDMakale
         MakaleManager manager = new MakaleManager(new MakaleRepository());
         public IViewComponentResult Invoke(int id )
         {
+            //makale idye göre makale başlıklarını viewbag ile taşır
             try
             {
                 var value = manager.GetByFilter(x => x.MakaleID == id);

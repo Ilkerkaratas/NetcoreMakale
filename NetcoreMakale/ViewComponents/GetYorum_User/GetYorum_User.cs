@@ -15,7 +15,7 @@ namespace NetcoreMakale.ViewComponents.GetYorum_User
         UserManager user = new UserManager(new UserRepository());
         public IViewComponentResult Invoke(Yorum yorum)
         {
-
+            //yorumu yapan kişinin kullanıcı bilgilerini görünüm katmanına taşır.
 
             var values = user.GetByFilter(x => x.UserID == yorum.UserID);
 

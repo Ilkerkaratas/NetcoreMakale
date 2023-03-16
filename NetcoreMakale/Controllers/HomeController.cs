@@ -29,13 +29,13 @@ namespace NetcoreMakale.Controllers
         public IActionResult Index()
             
         {
-           
             var model = M_Manager.GetList();
             model.Reverse();
             return View(model);
         }
         [Authorize(Roles = "Admin,User")]
         [HttpGet]
+        //makale ıdye göre sadece 1 makalenin bilgilerinin gösterildiği sayfa
         public IActionResult MakaleDetail(int id)
         {
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
@@ -59,8 +59,11 @@ namespace NetcoreMakale.Controllers
         {
             //giriş yapan kullanıcı
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+            //Giriş yapan kullanıcının ilgili makelyle ilgili like bilgileri.
             var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID == MakaleId);
+            //kullanıcının like atıp atmadığı bilgisi
             ViewBag.like = like.Lİke_;
+            //Kullanıcının User idsi
             int userID = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name).UserID;
             Yorum y = new Yorum();
             y.MakaleID = MakaleId;
@@ -74,7 +77,8 @@ namespace NetcoreMakale.Controllers
             return View(model);
         }
         [Authorize(Roles = "User,Admin")]
-        
+        //makaledetail sayfasından makale idye göre kullanıcının like işlemlerini yapması için like sayfası
+        //bir view döndermiyor.
         public IActionResult MakaleLike(int MakaleID)
         {
             

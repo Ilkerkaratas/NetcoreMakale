@@ -14,7 +14,7 @@ namespace NetcoreMakale.ViewComponents.YUserimg
         UserManager user = new UserManager(new UserRepository());
         public IViewComponentResult Invoke(Yorum yorum)
         {
-
+            //yorumu yapan kişinin profil resmini alabilmek için bir viewcomponent yorum sayfasında makale modelim olduğu için bu bilgileri view component ile çektim.
 
             var values = user.GetByFilter(x => x.UserID == yorum.UserID);
             ViewBag.img = values.KullaniciResim;

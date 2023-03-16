@@ -11,7 +11,8 @@ namespace NetcoreMakale.ViewComponents.GetIDUserName
     public class GetIDUserName:ViewComponent
     {
         UserManager manager = new UserManager(new UserRepository());
-        //Category Id ye Göre Category İsmi Getir
+        //user idye göre kullanıcı isimlerini taşır.
+        //yorum yapan ve makale yazan kişinin adını çekebilmek için yaptım.
         public IViewComponentResult Invoke(int id)
         {
             var value = manager.GetByFilter(x => x.UserID == id);
