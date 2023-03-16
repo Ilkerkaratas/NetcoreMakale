@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
+    //UI katmanımd user ile ilgili veri tabanı işlemleri yapabilmem için tasarlanmış manager sınııfı
+    //Generic repositoryde tanımlanan bütün işleri yapr tek farkı kayıt işlemi ayrı bir method olarak kullanmadım burda.
     public class UserManager : IUserService
     {
         IUserDAL userDAL;

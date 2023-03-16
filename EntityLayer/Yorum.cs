@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EntityLayer
 {
+   
     [Table("Yorum")]
     public class Yorum
     {

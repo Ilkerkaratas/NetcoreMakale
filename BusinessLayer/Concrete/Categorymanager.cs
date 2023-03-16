@@ -12,6 +12,8 @@ namespace BusinessLayer.Concrete
 {
     public class Categorymanager : ICategoryService
     {
+       //UI katmanımd categori ile ilgili veri tabanı işlemleri yapabilmem için tasarlanmış manager sınııfı
+       //Generic repositoryde tanımlanan bütün işleri yapr tek farkı kayıt işlemi ayrı bir method olarak kullanmadım burda.
         ICategoryDAL categoryDAL;
         public Categorymanager(ICategoryDAL dAL)
         {
