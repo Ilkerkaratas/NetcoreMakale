@@ -1,13 +1,12 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccesLayer.Repostories;
 using EntityLayer;
+using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetcoreMakale.Controllers
@@ -67,7 +66,11 @@ namespace NetcoreMakale.Controllers
                 {
                     if (eimage != null)
                     {
-                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
                     }
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                     {
@@ -107,7 +110,7 @@ namespace NetcoreMakale.Controllers
             {
                 var like = like_manager.GetList(x => x.MakaleID == makale.MakaleID);
                 var yorum = yorum_manager.GetList(x => x.MakaleID == makale.MakaleID);
-                if (like is not null)
+                if (like.Count != 0)
                 {
                     foreach (var item in like)
                     {
@@ -115,7 +118,7 @@ namespace NetcoreMakale.Controllers
                     }
                     
                 }
-                if(yorum is not null)
+                if(yorum.Count != 0)
                 {
                     foreach (var item in yorum)
                     {
@@ -125,7 +128,14 @@ namespace NetcoreMakale.Controllers
                 }
                 if (makale.MakaleResim is not null)
                 {
-                    System.IO.File.Delete(@"wwwroot\UserImg\" + makale.MakaleResim);
+                   
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", makale.MakaleResim);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                    
+                    
                 }
                 manager.Delete(x => x.MakaleID == id);
             }

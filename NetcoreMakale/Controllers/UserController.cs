@@ -47,13 +47,15 @@ namespace NetcoreMakale.Controllers
                 string ImageName = file.FileName;
                 if (eimage != ImageName)
                 {
-
-
                     if (file != null)
                     {
                         if (eimage != null)
                         {
-                            System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
+                            if (System.IO.File.Exists(path))
+                            {
+                                System.IO.File.Delete(path);
+                            }
                         }
                         if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                         {
@@ -104,7 +106,6 @@ namespace NetcoreMakale.Controllers
                 {
                     makale_manager.Delete(x => x.UserID == item.MakaleID);
                 }
-
             }
             if (yorum is not null)
             {
@@ -113,8 +114,14 @@ namespace NetcoreMakale.Controllers
                     yorum_manager.Delete(x => x.UserID == item.YorumID);
                 }
             }
-            System.IO.File.Delete(@"wwwroot\UserImg\" + user.KullaniciResim);
-
+            if (user.KullaniciResim is not null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", user.KullaniciResim);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
             user_manager.Delete(x => x.UserID == id);
             if (User.IsInRole("Admin"))
             {
@@ -162,6 +169,7 @@ namespace NetcoreMakale.Controllers
         }
         [Authorize(Roles = "Admin,User")]
         [HttpGet]
+        //Kullanıcı ayarları sayfası
         public IActionResult UserOp()
         {
             var value = user_manager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
