@@ -24,14 +24,14 @@ namespace NetcoreMakale.Controllers
         public IActionResult Login()
         {
             
-            @ViewBag.f = 1;
+            @ViewBag.f = 0;
             return View();
         }
 
         [HttpPost]
         public IActionResult Login(string Ad, string Sifre)
         {
-            @ViewBag.f = 0;
+            @ViewBag.f = 1;
             try
             {
                 if (string.IsNullOrEmpty(Ad) && string.IsNullOrEmpty(Sifre))
@@ -44,7 +44,7 @@ namespace NetcoreMakale.Controllers
                 var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre == Sifre);
                 if (user is not null)
                 {
-                    @ViewBag.f = 1;
+                    @ViewBag.f = 0;
 
                     identity = new ClaimsIdentity(new[]
                     {

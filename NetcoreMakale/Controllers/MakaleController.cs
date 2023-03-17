@@ -62,10 +62,11 @@ namespace NetcoreMakale.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(makale.MakaleID);
+                return View(makale);
             }
             string eimage = makale.MakaleResim;
-            string ImageName = file.FileName;
+
+            string ImageName = null;
 
             if (eimage != ImageName)
             {
@@ -73,6 +74,7 @@ namespace NetcoreMakale.Controllers
                 {
                     if (eimage != null)
                     {
+                        ImageName = file.FileName;
                         System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
                     }
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
@@ -146,6 +148,7 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public async Task<IActionResult> MakaleAdd(Makale makale, IFormFile file)
         {
+            //_like ve makaleıd invalid olduğu için 2 den fazla hata olursa...
             if (ModelState.ErrorCount>2)
             {
                 return View();

@@ -82,7 +82,7 @@ namespace NetcoreMakale.Controllers
             user.KullaniciResim = eimage;
             if (!ModelState.IsValid)
             {
-                return View(user.UserID);
+                return View(user);
             }
             user_manager.Update(user);
             var value = user_manager.GetByFilter(x => x.UserID == user.UserID);
@@ -163,8 +163,8 @@ namespace NetcoreMakale.Controllers
                     user.KullaniciResim = ImageName;
                 }
             }
-
-            if (!ModelState.IsValid)
+            //user ıd invalid geliyor...
+            if (ModelState.ErrorCount>1)
             {
                 return View();
             }

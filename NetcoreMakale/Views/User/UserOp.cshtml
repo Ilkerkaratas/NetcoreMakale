@@ -17,12 +17,16 @@
     <form method="post" enctype="multipart/form-data" asp-action="UserEdit" asp-controller="User">
 
         <div class="form-group row">
-
-
-
             <img src="~/UserImg/@Model.KullaniciResim" style="width:auto;height:200px" />
-            <label class="col-sm-12 col-md-2 col-form-label" name="img">Resim</label>
-            <input type="file" id="file" name="file" class="form-control" />
+        </div>
+        <div class="form-group row">
+            
+            <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Resim</label>
+            <div class="col-sm-12 col-md-10">
+                <input type="file" id="file" name="file" class="" />
+            </div>
+        </div>
+        <div class="form-group row">
             <input type="hidden" asp-for="UserID" value="@Model.UserID" />
             <input type="hidden" asp-for="KullaniciResim" value="@Model.KullaniciResim" />
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
