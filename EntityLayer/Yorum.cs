@@ -14,6 +14,7 @@ namespace EntityLayer
     {
         [Key]
         public int YorumID { get; set; }
+        [MaxLength(150,ErrorMessage ="maksimum 150 karakterden oluşan bir yorum yapabilirsiniz !!")]
         public string yorum_text { get; set; }
 
         public int UserID { get; set; }

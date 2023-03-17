@@ -12,6 +12,7 @@
             <label class="col-sm-12 col-md-2 col-form-label">Kategori Adı</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="CategoryName" placeholder="@Model.CategoryName" value="@Model.CategoryName">
+                @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
             </div>
         </div>
         

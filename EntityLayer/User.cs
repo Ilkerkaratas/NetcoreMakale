@@ -12,11 +12,14 @@ namespace EntityLayer
         [Key]
         public int UserID { get; set; }
 
-        [StringLength(50)]
+        [StringLength(15,ErrorMessage ="Kullanýcý adý maksimum 15 karakterden oluþabilir !!")]
+        [MinLength(8,ErrorMessage ="Kullanýcý adý minimum 8 karakterden oluþmalý !!")]
+        
         public string KullaniciAdi { get; set; }
         public string KullaniciResim { get; set; }
 
-        [StringLength(50)]
+        [StringLength(20,ErrorMessage ="Þifre maksimim 20 karakterden oluþabilir !!")]
+        [MinLength(10,ErrorMessage ="Þifre minimum 10 karakterden oluþmalý!!")]
         public string Sifre { get; set; }
         public string role { get; set; }
        

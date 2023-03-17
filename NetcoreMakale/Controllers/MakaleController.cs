@@ -1,12 +1,13 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccesLayer.Repostories;
 using EntityLayer;
-using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetcoreMakale.Controllers
@@ -24,7 +25,7 @@ namespace NetcoreMakale.Controllers
         public IActionResult Index()
         {
             var user = UserManager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
-            if (user.role=="Admin")
+            if (user.role == "Admin")
             {
                 var value = manager.GetList();
                 value.Reverse();
@@ -32,31 +33,37 @@ namespace NetcoreMakale.Controllers
             }
             else
             {
-                
-                var value = manager.GetList(x=>x.UserID==user.UserID);
+
+                var value = manager.GetList(x => x.UserID == user.UserID);
                 return View(value);
             }
-            
+
         }
         [HttpGet]
         public IActionResult MakaleEdit(int id)
         {
+
             var value = manager.GetByFilter(x => x.MakaleID == id);
-            var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
-            if (user.UserID==value.UserID || user.role=="Admin"){
-                
+            var user = UserManager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+            if (user.UserID == value.UserID || user.role == "Admin")
+            {
+
                 return View(value);
             }
             else
             {
                 return RedirectToAction("");
             }
-            
-           
+
+
         }
         [HttpPost]
-        public async Task<IActionResult> MakaleEdit(Makale makale,IFormFile file)
+        public async Task<IActionResult> MakaleEdit(Makale makale, IFormFile file)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(makale.MakaleID);
+            }
             string eimage = makale.MakaleResim;
             string ImageName = file.FileName;
 
@@ -66,11 +73,7 @@ namespace NetcoreMakale.Controllers
                 {
                     if (eimage != null)
                     {
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
-                        if (System.IO.File.Exists(path))
-                        {
-                            System.IO.File.Delete(path);
-                        }
+                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
                     }
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                     {
@@ -103,43 +106,36 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult MakaleDelete(int id)
         {
-            var makale = manager.GetByFilter(x=>x.MakaleID==id);
-            var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
-           
-            if (user.UserID==makale.UserID || user.role=="Admin")
+            var makale = manager.GetByFilter(x => x.MakaleID == id);
+            var user = UserManager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+
+            if (user.UserID == makale.UserID || user.role == "Admin")
             {
                 var like = like_manager.GetList(x => x.MakaleID == makale.MakaleID);
                 var yorum = yorum_manager.GetList(x => x.MakaleID == makale.MakaleID);
-                if (like.Count != 0)
+                if (like is not null)
                 {
                     foreach (var item in like)
                     {
                         like_manager.Delete(x => x.MakaleID == item.MakaleID);
                     }
-                    
+
                 }
-                if(yorum.Count != 0)
+                if (yorum is not null)
                 {
                     foreach (var item in yorum)
                     {
                         yorum_manager.Delete(x => x.MakaleID == item.MakaleID);
                     }
-                    
+
                 }
                 if (makale.MakaleResim is not null)
                 {
-                   
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", makale.MakaleResim);
-                    if (System.IO.File.Exists(path))
-                    {
-                        System.IO.File.Delete(path);
-                    }
-                    
-                    
+                    System.IO.File.Delete(@"wwwroot\UserImg\" + makale.MakaleResim);
                 }
                 manager.Delete(x => x.MakaleID == id);
             }
-            
+
             return RedirectToAction("");
         }
         [HttpGet]
@@ -148,9 +144,13 @@ namespace NetcoreMakale.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> MakaleAdd(Makale makale,IFormFile file)
+        public async Task<IActionResult> MakaleAdd(Makale makale, IFormFile file)
         {
-            var user = UserManager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+            if (ModelState.ErrorCount>2)
+            {
+                return View();
+            }
+            var user = UserManager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             makale.MakaleStatus = true;
             makale._Like = 0;
             makale.UserID = user.UserID;
@@ -171,7 +171,7 @@ namespace NetcoreMakale.Controllers
                 }
             }
             manager.Add(makale);
-            return RedirectToAction("") ;
+            return RedirectToAction("");
         }
     }
 }

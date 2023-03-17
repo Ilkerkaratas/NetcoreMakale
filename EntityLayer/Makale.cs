@@ -12,13 +12,16 @@ namespace EntityLayer
         [Key]
         
         public int MakaleID { get; set; }
+        
         public int _Like { get; set; }
 
-        [StringLength(50)]
+        [MaxLength(20,ErrorMessage ="Makale başlığı maksimum 20 karakter olmalıdır !!")]
+        [MinLength(5,ErrorMessage ="Makale başlığı minium 5 karakter olmalıdır !!")]
         public string MakaleBaşlik { get; set; }
         public string MakaleResim { get; set; }
 
-        [Column(TypeName = "text")]
+        
+        [MinLength(150,ErrorMessage ="Makale içeriği minimum 150 karakterden oluşmalıdır !!")]
         public string MakaleAciklama { get; set; }
 
         public bool? MakaleStatus { get; set; }

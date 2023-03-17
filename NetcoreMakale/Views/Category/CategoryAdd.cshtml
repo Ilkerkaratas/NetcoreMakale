@@ -13,6 +13,7 @@
             <label class="col-sm-12 col-md-2 col-form-label">Kategory Adı</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="CategoryName">
+                @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
             </div>
         </div>
         

@@ -24,12 +24,14 @@
             <label class="col-sm-12 col-md-2 col-form-label">Makale Başlik</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="MakaleBaşlik" placeholder="@Model.MakaleBaşlik" value="@Model.MakaleBaşlik">
+                @Html.ValidationMessageFor(m => m.MakaleBaşlik, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Açıklama</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" asp-for="MakaleAciklama" type="text" placeholder="@Model.MakaleAciklama" value="@Model.MakaleAciklama">
+                @Html.ValidationMessageFor(m => m.MakaleAciklama, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">

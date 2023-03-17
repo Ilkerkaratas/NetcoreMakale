@@ -12,7 +12,8 @@ namespace EntityLayer
         [Key]
         public int CategoryID { get; set; }
 
-        [StringLength(50)]
+        [StringLength(20,ErrorMessage ="Kategori adý maksimim 20 karakter olmalýdýr !!")]
+        [MinLength(3,ErrorMessage ="kategori adý minimum 3 karakterden oluþmalýdýr !!")]
         public string CategoryName { get; set; }
 
         [StringLength(50)]

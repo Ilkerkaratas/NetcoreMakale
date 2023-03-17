@@ -15,12 +15,14 @@
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="KullaniciAdi">
+                @Html.ValidationMessageFor(m => m.KullaniciAdi, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Şifre</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" asp-for="Sifre" type="text">
+                @Html.ValidationMessageFor(m => m.Sifre, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">

@@ -11,23 +11,27 @@
     }
 }
 <div class="pd-20 card-box mb-30">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" oninvalid="" enctype="multipart/form-data">
         <div class="form-group row">
-            <input type="hidden" asp-for="UserID"  />
-            <input type="hidden" asp-for="MakaleID"  />
-            <input type="hidden" asp-for="_Like"  />
-            <input type="hidden" asp-for="MakaleStatus"  />
+            <input type="hidden" asp-for="UserID" />
+            <input type="hidden" asp-for="MakaleID" />
+            <input type="hidden" asp-for="_Like" />
+            <input type="hidden" asp-for="MakaleStatus" />
             <label class="col-sm-12 col-md-2 col-form-label">Makale Resim</label>
             <input type="file" name="file" / class="form-control">
+           
             <label class="col-sm-12 col-md-2 col-form-label">Makale Başlik</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" type="text" asp-for="MakaleBaşlik"  >
+                
+                <input class="form-control" type="text" asp-for="MakaleBaşlik">
+                @Html.ValidationMessageFor(m=>m.MakaleBaşlik,null,new {@class="text-danger" })
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Açıklama</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" asp-for="MakaleAciklama" type="text">
+                @Html.ValidationMessageFor(m => m.MakaleAciklama, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">

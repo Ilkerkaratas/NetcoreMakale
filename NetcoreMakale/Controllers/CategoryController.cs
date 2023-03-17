@@ -33,6 +33,10 @@ namespace NetcoreMakale.Controllers
         public IActionResult CategoryAdd(Category category)
         {
             category.CategoryStatus = true;
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             manager.Add(category);
             return RedirectToAction("");
         }
@@ -52,6 +56,10 @@ namespace NetcoreMakale.Controllers
             else
             {
                 category.CategoryStatus = false;
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(category.CategoryID);
             }
             manager.Update(category);
             return RedirectToAction("");
