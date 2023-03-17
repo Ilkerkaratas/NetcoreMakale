@@ -86,21 +86,32 @@ namespace NetcoreMakale.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.hata = 1;
             return View();
         }
 
         [HttpPost]
         public IActionResult Register(User user)
         {
-            var control = manager.GetByFilter(x=>x.KullaniciAdi==user.KullaniciAdi && x.Sifre==user.Sifre);
+            //kullanıcı adı kullanılıyorsa hata vermesi için scripte değer gönderiyorum.
+            //not: 0 gönderince script düzgün çalışmadı 
+            ViewBag.hata = 1;
+            var control = manager.GetByFilter(x=>x.KullaniciAdi==user.KullaniciAdi);
             if (control == null)
             {
                 user.role = "User";
                 manager.Add(user);
+                return RedirectToAction("Login", "Account");
             }
-            
+            else
+            {
 
-            return RedirectToAction("Login", "Account");
+                ViewBag.hata = 0;
+                
+            }
+
+            return View();
+
         }
 
     }

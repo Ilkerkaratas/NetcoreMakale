@@ -17,7 +17,7 @@
     <!-- Main css -->
     <link rel="stylesheet" href="~/Kayıt/css/style.css">
 </head>
-<body>
+<body onload="hata()">
 
     <div class="main">
 
@@ -48,7 +48,14 @@
         </section>
 
     </div>
+    <script>
+        function hata() {
+            if (@ViewBag.hata == 0) {
+                alert("Bu kullanıcı adı zaten kullanılıyor!!!");
+            }
 
+        }
+    </script>
     <!-- JS -->
     <script src="~/Kayıt/vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
