@@ -17,10 +17,11 @@ namespace EntityLayer
 
         [MaxLength(20,ErrorMessage ="Makale başlığı maksimum 20 karakter olmalıdır !!")]
         [MinLength(5,ErrorMessage ="Makale başlığı minium 5 karakter olmalıdır !!")]
+        [Required(ErrorMessage = "Bu alan boş geçilemez")]
         public string MakaleBaşlik { get; set; }
         public string MakaleResim { get; set; }
 
-        
+        [Required(ErrorMessage = "Bu alan boş geçilemez")]
         [MinLength(150,ErrorMessage ="Makale içeriği minimum 150 karakterden oluşmalıdır !!")]
         public string MakaleAciklama { get; set; }
 

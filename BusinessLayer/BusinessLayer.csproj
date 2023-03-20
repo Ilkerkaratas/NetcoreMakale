@@ -42,11 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICategoryService.cs" />
+    <Compile Include="Abstract\IContactService.cs" />
     <Compile Include="Abstract\ILikeService.cs" />
     <Compile Include="Abstract\IMakaleService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Abstract\IYorumService.cs" />
     <Compile Include="Concrete\Categorymanager.cs" />
+    <Compile Include="Concrete\ContactManager.cs" />
     <Compile Include="Concrete\LikeManager.cs" />
     <Compile Include="Concrete\MakaleManager.cs" />
     <Compile Include="Concrete\UserManager.cs" />

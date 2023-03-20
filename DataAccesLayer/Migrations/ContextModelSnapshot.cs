@@ -27,8 +27,9 @@ namespace DataAccesLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<bool?>("CategoryStatus")
                         .HasColumnType("bit")
@@ -37,6 +38,30 @@ namespace DataAccesLayer.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("EntityLayer.Contact", b =>
+                {
+                    b.Property<int>("ContactID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactMail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contacttext")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContactID");
+
+                    b.ToTable("contacts");
                 });
 
             modelBuilder.Entity("EntityLayer.Like", b =>
@@ -71,11 +96,13 @@ namespace DataAccesLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MakaleAciklama")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MakaleBaşlik")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("MakaleResim")
                         .HasColumnType("nvarchar(max)");
@@ -102,15 +129,17 @@ namespace DataAccesLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("KullaniciAdi")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("KullaniciResim")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sifre")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("role")
                         .HasColumnType("nvarchar(max)");
@@ -134,7 +163,9 @@ namespace DataAccesLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("yorum_text")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("YorumID");
 

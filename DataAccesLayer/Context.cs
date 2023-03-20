@@ -23,6 +23,7 @@ namespace DataAccesLayer
         public DbSet<Yorum> yorums { get; set; }
         public DbSet<Like> likes { get; set; }
         public DbSet<User> users{ get; set; }
+        public DbSet<Contact> contacts { get; set; }
 
 
     }

@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EntityLayer;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace NetcoreMakale.Controllers
 {
@@ -25,7 +28,49 @@ namespace NetcoreMakale.Controllers
         UserManager User_Manager = new UserManager(new UserRepository());
         YorumManager yorum_M = new YorumManager(new YorumRepository());
         LikeManager LikeManager = new LikeManager(new LikeRepository());
+        ContactManager ContactManager = new ContactManager(new ContactRepository());
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Contact(Contact contact)
+        {
+            
+            MimeMessage mimeMessage = new MimeMessage();
+            MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
+            
+            mimeMessage.From.Add(mailboxAddressFrom);
+            MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
+            mimeMessage.To.Add(mailBoxAddressTo);
+            mimeMessage.Subject = contact.subject;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("smtp.gmail.com",587,false);
+            smtp.Authenticate("ilkerkaratas94@gmail.com", "fgalkazvztijlmor");
+            smtp.Send(mimeMessage);
+            
+            smtp.Disconnect(true);
 
+            //MailMessage Eposta = new MailMessage();
+            //Eposta.From = new MailAddress("karatasilker25@gmail.com","İlker Karataş");
+            //Eposta.To.Add(new MailAddress(contact.ContactMail,contact.Name));
+            //Eposta.Subject = contact.subject;
+            //Eposta.Body = contact.Contacttext;
+            //Eposta.Priority = MailPriority.High;
+            //SmtpClient smtp = new SmtpClient("smtp.gmail.com",587);
+            //NetworkCredential AccountInfo = new NetworkCredential("ilkerkaratas94@gmail.com", "apbelqwqsriocfix");
+            //smtp.UseDefaultCredentials = false;
+            //smtp.Credentials = AccountInfo;
+            //smtp.EnableSsl = true;
+            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //smtp.Send(Eposta);
+
+            
+
+            ContactManager.Add(contact);
+            return View();
+        }
         public IActionResult Index()
             
         {
@@ -57,6 +102,9 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult MakaleDetail(int MakaleId, string yorum)
         {
+          
+
+
             //giriş yapan kullanıcı
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             //Giriş yapan kullanıcının ilgili makelyle ilgili like bilgileri.
