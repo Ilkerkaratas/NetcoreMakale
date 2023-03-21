@@ -1,27 +1,27 @@
 ﻿<ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Makale"
+        <li class="nav-item" >
+            <a class="nav-link" asp-controller="Makale"
                asp-action="Index">Makalelerim</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account"
-               asp-action="LogOut">Logout</a>
+            <a class="nav-link" asp-controller="Account"
+               asp-action="LogOut" >Logout</a>
         </li>
-        <a asp-controller="User" asp-action="UserOp">
+        <a asp-controller="User" asp-action="UserOp"style="color: #00000080">
             <img src="~/UserImg/@await Component.InvokeAsync("GetUserimg") " class="circle-35">
         </a>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account"
+            <a class="nav-link" asp-controller="Account"
                asp-action="Login">Login</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account"
+            <a class="nav-link" asp-controller="Account"
                asp-action="Register">Register</a>
         </li>
 

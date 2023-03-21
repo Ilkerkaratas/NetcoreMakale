@@ -24,6 +24,7 @@ namespace NetcoreMakale.Controllers
         YorumManager yorum_M = new YorumManager(new YorumRepository());
         LikeManager LikeManager = new LikeManager(new LikeRepository());
         ContactManager ContactManager = new ContactManager(new ContactRepository());
+        Categorymanager categorymanager = new Categorymanager(new CategoryRepository());
         [HttpGet]
         public IActionResult Contact()
         {
@@ -32,45 +33,53 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult Contact(Contact contact)
         {
-            ////mail gönderme pcden mail gönderme iznim olmadığı için kapattım.
-            //MimeMessage mimeMessage = new MimeMessage();
-            //MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
+            if (ModelState.IsValid)
+            {
+                ////mail gönderme pcden mail gönderme iznim olmadığı için kapattım.
+                //MimeMessage mimeMessage = new MimeMessage();
+                //MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
 
-            //mimeMessage.From.Add(mailboxAddressFrom);
-            //MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
-            //mimeMessage.To.Add(mailBoxAddressTo);
-            //mimeMessage.Subject = contact.subject;
-            //var bodybuilder = new BodyBuilder();
-            //bodybuilder.TextBody = contact.Contacttext;
-            //mimeMessage.Body = bodybuilder.ToMessageBody();
-            //SmtpClient smtp = new SmtpClient();
-            //smtp.Connect("smtp.gmail.com", 587, false);
-            //smtp.Authenticate("ilkerkaratas94@gmail.com", "fgalkazvztijlmor");
-            //smtp.Send(mimeMessage);
-            //smtp.Disconnect(true);
-
-
-            ////Başka bir yöntem
-            //MailMessage Eposta = new MailMessage();
-            ////Kİmden
-            //Eposta.From = new MailAddress("karatasilker25@gmail.com", "İlker Karataş");
-            ////Kime Gönderilecek
-            //Eposta.To.Add(new MailAddress(contact.ContactMail, contact.Name));
-            //Eposta.Subject = contact.subject;
-            //Eposta.Body = contact.Contacttext;
-            //Eposta.Priority = MailPriority.High;
-            //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            //NetworkCredential AccountInfo = new NetworkCredential("ilkerkaratas94@gmail.com", "apbelqwqsriocfix");
-            //smtp.UseDefaultCredentials = false;
-            //smtp.Credentials = AccountInfo;
-            //smtp.EnableSsl = true;
-            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //smtp.Send(Eposta);
+                //mimeMessage.From.Add(mailboxAddressFrom);
+                //MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
+                //mimeMessage.To.Add(mailBoxAddressTo);
+                //mimeMessage.Subject = contact.subject;
+                //var bodybuilder = new BodyBuilder();
+                //bodybuilder.TextBody = contact.Contacttext;
+                //mimeMessage.Body = bodybuilder.ToMessageBody();
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Connect("smtp.gmail.com", 587, false);
+                //smtp.Authenticate("ilkerkaratas94@gmail.com", "fgalkazvztijlmor");
+                //smtp.Send(mimeMessage);
+                //smtp.Disconnect(true);
 
 
+                ////Başka bir yöntem
+                //MailMessage Eposta = new MailMessage();
+                ////Kİmden
+                //Eposta.From = new MailAddress("karatasilker25@gmail.com", "İlker Karataş");
+                ////Kime Gönderilecek
+                //Eposta.To.Add(new MailAddress(contact.ContactMail, contact.Name));
+                //Eposta.Subject = contact.subject;
+                //Eposta.Body = contact.Contacttext;
+                //Eposta.Priority = MailPriority.High;
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                //NetworkCredential AccountInfo = new NetworkCredential("ilkerkaratas94@gmail.com", "apbelqwqsriocfix");
+                //smtp.UseDefaultCredentials = false;
+                //smtp.Credentials = AccountInfo;
+                //smtp.EnableSsl = true;
+                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //smtp.Send(Eposta);
 
-            ContactManager.Add(contact);
-            return RedirectToAction("/");
+
+
+                ContactManager.Add(contact);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+          
         }
         public IActionResult Index()
             
@@ -175,9 +184,20 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult Category_Makale(int id)
         {
-            var value = M_Manager.GetList(x=>x.CategoryID==id);
+            var Category = categorymanager.GetByFilter(x=>x.CategoryID==id);
+            //kategori ismi genelse tümünü listele..
+            if (Category.CategoryName=="Genel")
+            {
+                var value = M_Manager.GetList();
+                return View(value);
+            }
+            else
+            {
+                var value = M_Manager.GetList(x => x.CategoryID == id);
 
-            return View(value);
+                return View(value);
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

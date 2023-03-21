@@ -22,22 +22,26 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" asp-for="Name"  id="name" placeholder="Name">
+                                                    <input type="text" class="form-control" asp-for="Name"  placeholder="Name">
+                                                    @Html.ValidationMessageFor(c =>c.Name , null, new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" asp-for="ContactMail"  id="email" placeholder="Email">
+                                                    <input type="text" class="form-control" asp-for="ContactMail"  placeholder="Email">
+                                                    @Html.ValidationMessageFor(c => c.ContactMail, null, new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" asp-for="subject"  id="subject" placeholder="Subject">
+                                                    <input type="text" class="form-control" asp-for="subject"  placeholder="Subject">
+                                                    @Html.ValidationMessageFor(c => c.subject, null, new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea  class="form-control" asp-for="Contacttext" id="message" cols="30" rows="7" placeholder="Message"></textarea>
+                                                    <textarea class="form-control" asp-for="Contacttext"  cols="30" rows="7" placeholder="Message"></textarea>
+                                                    @Html.ValidationMessageFor(c => c.Contacttext, null, new { @class = "text-danger" })
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -94,10 +98,10 @@
         </div>
     </section>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/main.js"></script>
 
 
