@@ -1,18 +1,18 @@
-﻿
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with JoeBLog landing page.">
-    <meta name="author" content="Devcrud">
     <title>Makale.com</title>
     <!-- font icons -->
     <link rel="stylesheet" href="~/assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + JoeBLog main styles -->
     <link rel="stylesheet" href="~/assets/css/joeblog.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/Contact/css/style.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -43,15 +43,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
+
+                    @await Component.InvokeAsync("DropdownCategory")
+                  
                     <li class="nav-item">
-                        <a class="nav-link" href="/Home/Contact">Contact</a>
+                        <a class="nav-link" href="/Home/Contact">Bize Ulaşın</a>
                     </li>
 
                 </ul>
+                
                 <div class="navbar-nav ml-auto">
                     <partial name="_LoginPartial" />
                 </div>
-                
+
             </div>
         </div>
     </nav>
@@ -67,7 +71,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-md-3 text-center text-md-left mb-3 mb-md-0">
-                    <img src="assets/imgs/logo.svg" alt="" class="logo">
+                    <img src="~/assets/imgs/logo.svg" alt="" class="logo">
                 </div>
                 <div class="col-md-9 text-center text-md-right">
                     <div class="socials">
@@ -87,14 +91,11 @@
     </footer>
     <!-- End of Page Footer -->
     <!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    <script src="~/assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="~/assets/vendors/bootstrap/bootstrap.bundle.js"></script>
 
     <!-- JoeBLog js -->
-    <script src="assets/js/joeblog.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/assets/js/joeblog.js"></script>
+    
 </body>
 </html>

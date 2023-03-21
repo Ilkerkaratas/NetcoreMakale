@@ -1,0 +1,30 @@
+﻿@model EntityLayer.Contact
+@{
+    ViewData["Title"] = "Cevap";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<form method="POST" asp-action="Cevap" asp-controller="Admin">
+    <div class="row">
+       
+        
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="hidden" name="ContactID" value="@Model.ContactID" />
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <textarea class="form-control" name="text" id="message" cols="30" rows="7" placeholder="Message"></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="submit" value="Send Message" class="btn btn-primary">
+                <div class="submitting"></div>
+            </div>
+        </div>
+    </div>
+</form>
+

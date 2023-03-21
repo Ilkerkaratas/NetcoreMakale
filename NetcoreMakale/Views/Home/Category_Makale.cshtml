@@ -1,20 +1,17 @@
-﻿
+﻿@model List<EntityLayer.Makale>
 @{
-    ViewData["Title"] = "Home Page";
-    int sayac = 0;
+    ViewData["Title"] = "Category_Makale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@model List<EntityLayer.Makale>
 
 <div class="page-container">
     <div class="page-content">
-        <h1>Son Eklenen 8 Makale</h1>
-        <hr>
+        <br />
+
         <div class="row">
             @foreach (var item in Model)
             {
-                if (sayac == 8) { break; }
-                sayac++;
+
                 <div class="col-lg-6">
                     <div class="card text-center mb-5">
                         <div class="card-header p-0">
@@ -59,3 +56,4 @@
     }
 
 </script>
+

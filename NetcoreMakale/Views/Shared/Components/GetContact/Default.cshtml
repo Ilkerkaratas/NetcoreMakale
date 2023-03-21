@@ -1,0 +1,13 @@
+﻿@model List<EntityLayer.Contact>
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="#">
+            <h3>@item.Name</h3>
+            @if (item.Contacttext.Length > 50) {<p>@item.Contacttext.Substring(0,50)<a href="/Admin/ContactDetail/@item.ContactID">...</a></p> }
+                else {<p>@item.Contacttext</p> }
+            
+        </a>
+    </li>
+}

@@ -1,0 +1,12 @@
+﻿@model EntityLayer.Contact
+@{
+    ViewData["Title"] = "ContactDetail";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1 class="dt-center">Gönderen: @Model.Name</h1>
+<h2>Konu: @Model.subject</h2>
+<h2>Gönderen Mail: @Model.ContactMail</h2>
+<p >@Model.Contacttext</p>
+
+<a class="btn-dark btn" href="/Admin/Cevap/@Model.ContactID" >Cevap Yaz</a>

@@ -3,14 +3,9 @@ using DataAccesLayer.Repostories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetcoreMakale.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using EntityLayer;
 using Microsoft.AspNetCore.Authorization;
-using System.Net;
 using MimeKit;
 using MailKit.Net.Smtp;
 
@@ -37,28 +32,34 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult Contact(Contact contact)
         {
-            
-            MimeMessage mimeMessage = new MimeMessage();
-            MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
-            
-            mimeMessage.From.Add(mailboxAddressFrom);
-            MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
-            mimeMessage.To.Add(mailBoxAddressTo);
-            mimeMessage.Subject = contact.subject;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Connect("smtp.gmail.com",587,false);
-            smtp.Authenticate("ilkerkaratas94@gmail.com", "fgalkazvztijlmor");
-            smtp.Send(mimeMessage);
-            
-            smtp.Disconnect(true);
+            ////mail gönderme pcden mail gönderme iznim olmadığı için kapattım.
+            //MimeMessage mimeMessage = new MimeMessage();
+            //MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
 
+            //mimeMessage.From.Add(mailboxAddressFrom);
+            //MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
+            //mimeMessage.To.Add(mailBoxAddressTo);
+            //mimeMessage.Subject = contact.subject;
+            //var bodybuilder = new BodyBuilder();
+            //bodybuilder.TextBody = contact.Contacttext;
+            //mimeMessage.Body = bodybuilder.ToMessageBody();
+            //SmtpClient smtp = new SmtpClient();
+            //smtp.Connect("smtp.gmail.com", 587, false);
+            //smtp.Authenticate("ilkerkaratas94@gmail.com", "fgalkazvztijlmor");
+            //smtp.Send(mimeMessage);
+            //smtp.Disconnect(true);
+
+
+            ////Başka bir yöntem
             //MailMessage Eposta = new MailMessage();
-            //Eposta.From = new MailAddress("karatasilker25@gmail.com","İlker Karataş");
-            //Eposta.To.Add(new MailAddress(contact.ContactMail,contact.Name));
+            ////Kİmden
+            //Eposta.From = new MailAddress("karatasilker25@gmail.com", "İlker Karataş");
+            ////Kime Gönderilecek
+            //Eposta.To.Add(new MailAddress(contact.ContactMail, contact.Name));
             //Eposta.Subject = contact.subject;
             //Eposta.Body = contact.Contacttext;
             //Eposta.Priority = MailPriority.High;
-            //SmtpClient smtp = new SmtpClient("smtp.gmail.com",587);
+            //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             //NetworkCredential AccountInfo = new NetworkCredential("ilkerkaratas94@gmail.com", "apbelqwqsriocfix");
             //smtp.UseDefaultCredentials = false;
             //smtp.Credentials = AccountInfo;
@@ -66,10 +67,10 @@ namespace NetcoreMakale.Controllers
             //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             //smtp.Send(Eposta);
 
-            
+
 
             ContactManager.Add(contact);
-            return View();
+            return RedirectToAction("/");
         }
         public IActionResult Index()
             
@@ -171,6 +172,12 @@ namespace NetcoreMakale.Controllers
             M_Manager.Update(makale);
 
             return RedirectToAction("MakaleDetail", new { id = MakaleID });
+        }
+        public IActionResult Category_Makale(int id)
+        {
+            var value = M_Manager.GetList(x=>x.CategoryID==id);
+
+            return View(value);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
