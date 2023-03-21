@@ -8,7 +8,7 @@
 
 <div class="page-container">
     <div class="page-content">
-        <h1>Son Eklenen 8 Makale</h1>
+        <h1 style="text-align:center">Son Eklenen 8 Makale</h1>
         <hr>
         <div class="row">
             @foreach (var item in Model)
@@ -33,9 +33,6 @@
                             {
                                 <p class="my-2">@item.MakaleAciklama</p>
                             }
-                        </div>
-
-                        <div class="card-footer p-0 text-center">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <a href="/Home/MakaleDetail/@item.MakaleID" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
@@ -45,6 +42,8 @@
                                 <button onclick="myfunction()" class="btn btn-outline-dark btn-sm"> Devamını Oku</button>
                             }
                         </div>
+
+                        
                     </div>
                 </div>
             }

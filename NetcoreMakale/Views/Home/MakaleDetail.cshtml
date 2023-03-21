@@ -13,7 +13,7 @@
         <div class="page-content">
             <div class="card">
                 <div class="card-header pt-0">
-                    <h3 class="card-title mb-4">@Model.MakaleBaşlik</h3>
+                    <h3 class="card-title mb-4" style="text-align:center">@Model.MakaleBaşlik</h3>
                     <div class="blog-media mb-4">
                         <img src="~/MakaleImg/@Model.MakaleResim" alt="" class="w-100">
 
@@ -24,7 +24,7 @@
 
 
                        
-                            @Html.ActionLink("Like: " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
+                            @Html.ActionLink("Beğeni " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
                        {
                            style = "Color:" + color(ViewBag.like)
                        })
@@ -44,7 +44,7 @@
                     @await Component.InvokeAsync("YorumGetir", new { makale = Model })
 
 
-                    <h6 class="mt-5 mb-3 text-center"><a href="#" class="text-dark">Write Your Comment</a></h6>
+                    <h6 class="mt-5 mb-3 text-center"><a href="#" class="text-dark">Yorum Yaz</a></h6>
                     <hr>
                     <form method="post" action="MakaleDetail" controller="Home">
                         <div class="form-row">
@@ -52,11 +52,11 @@
 
                                 <input type="hidden" id="custId" name="MakaleId" value="@Model.MakaleID">
 
-                                <textarea name="yorum" id="" cols="30" rows="10" class="form-control" placeholder="Enter Your Comment Here"></textarea>
+                                <textarea name="yorum" id="" cols="30" rows="10" class="form-control" placeholder="Yorumu Buraya Gir"></textarea>
 
                             </div>
                             <div class="form-group col-12">
-                                <button class="btn btn-primary btn-block" type="submit">Post Comment</button>
+                                <button class="btn btn-primary btn-block" type="submit">Yorum Yap</button>
                             </div>
                         </div>
                     </form>

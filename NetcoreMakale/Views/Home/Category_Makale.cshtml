@@ -30,9 +30,6 @@
                             {
                                 <p class="my-2">@item.MakaleAciklama</p>
                             }
-                        </div>
-
-                        <div class="card-footer p-0 text-center">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <a href="/Home/MakaleDetail/@item.MakaleID" class="btn btn-outline-dark btn-sm">Devamını Oku</a>
@@ -42,6 +39,8 @@
                                 <button onclick="myfunction()" class="btn btn-outline-dark btn-sm"> Devamını Oku</button>
                             }
                         </div>
+
+                        
                     </div>
                 </div>
             }
