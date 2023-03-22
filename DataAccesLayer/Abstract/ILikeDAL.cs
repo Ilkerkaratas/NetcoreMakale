@@ -9,6 +9,6 @@ namespace DataAccesLayer.Abstract
 {
     public interface ILikeDAL:IGenericDAL<Like>
     {
-        bool varmi(int id);
+       
     }
 }

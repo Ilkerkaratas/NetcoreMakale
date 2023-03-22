@@ -30,12 +30,13 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult Cevap(string subject,string text,int ContactID)
         {
-            //var contact= contactManager.GetByFilter(x=>x.ContactID==ContactID);
+            
             ////mail gönderme pcden mail gönderme iznim olmadığı için kapattım.
             ////Test edilip düzenlenmesi gerekiyor.
+
+            //var contact= contactManager.GetByFilter(x=>x.ContactID==ContactID);
             //MimeMessage mimeMessage = new MimeMessage();
             //MailboxAddress mailboxAddressFrom = new MailboxAddress("İlker Karataş", "ilkerkaratas94@gmail.com");
-
             //mimeMessage.From.Add(mailboxAddressFrom);
             //MailboxAddress mailBoxAddressTo = new MailboxAddress(contact.Name, contact.ContactMail);
             //mimeMessage.To.Add(mailBoxAddressTo);

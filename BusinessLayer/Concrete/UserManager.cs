@@ -51,9 +51,6 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
-        public bool Varmi(string ad, string Sifre)
-        {
-            return userDAL.Varmi(ad,Sifre);
-        }
+      
     }
 }

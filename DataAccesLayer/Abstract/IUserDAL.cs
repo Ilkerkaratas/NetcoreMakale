@@ -9,6 +9,6 @@ namespace DataAccesLayer.Abstract
 {
     public interface IUserDAL:IGenericDAL<User>
     {
-        bool Varmi(string ad, string Sifre);
+        
     }
 }

@@ -15,6 +15,7 @@ namespace DataAccesLayer.Repostories
         
     {
         Context db = new Context();
+        
         //Bir entitiy alır ve içinde bulunduğu bilgileri veri tabanına ekler.
         public void Add(Entity entity)
         {

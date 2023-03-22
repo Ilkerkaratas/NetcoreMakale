@@ -10,19 +10,6 @@ namespace DataAccesLayer.Repostories
 {
     public class LikeRepository : GenericRepostory<Like>, ILikeDAL
     {
-        public bool varmi(int id)
-        {
-
-            Context db = new Context();
-            
-                var value = db.Set<Like>().Where(x => x.LikeID==id);
-                
-            
-            if(value==null)
-            {
-                return false;
-            };
-            return true;
-        }
+        
     }
 }

@@ -53,9 +53,6 @@ namespace BusinessLayer.Concrete
             dAL.Save();
         }
 
-        public bool varmi(int id)
-        {
-            return dAL.varmi(id);
-        }
+      
     }
 }

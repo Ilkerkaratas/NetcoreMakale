@@ -100,6 +100,7 @@ namespace NetcoreMakale.Controllers
             if (control == null)
             {
                 user.role = "User";
+                user.KullaniciResim = "Default.jpeg";
                 manager.Add(user);
                 return RedirectToAction("Login", "Account");
             }

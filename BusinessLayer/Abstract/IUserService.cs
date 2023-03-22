@@ -16,6 +16,6 @@ namespace BusinessLayer.Abstract
         List<User> GetList(Expression<Func<User, bool>> obj = null);
         User GetByFilter(Expression<Func<User, bool>> obj);
         void Save();
-        bool Varmi(string ad, string Sifre);
+      
     }
 }

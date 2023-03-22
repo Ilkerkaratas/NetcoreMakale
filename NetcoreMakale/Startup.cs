@@ -1,4 +1,5 @@
 using DataAccesLayer;
+using EntityLayer;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,7 @@ namespace NetcoreMakale
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
-            services.Configure<CookiePolicyOptions>(options => 
+            services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
@@ -37,11 +39,29 @@ namespace NetcoreMakale
             services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+
         {
+          //Baþlangýçta veritabaný yoksa oluþtur ve admin ekle
+            using (var context = new Context())
+            {
+                context.Database.Migrate();
+                if (!context.users.Any())
+                {
+                    User user = new User();
+                    user.KullaniciAdi = "Admin";
+                    user.Sifre = "Admin";
+                    user.role = "Admin";
+                    user.KullaniciResim = "Default.jpeg";
+                    context.users.Add(user);
+                    context.SaveChanges();
+                }
+                
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -52,6 +72,7 @@ namespace NetcoreMakale
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

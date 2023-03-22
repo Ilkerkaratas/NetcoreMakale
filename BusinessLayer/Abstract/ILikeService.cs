@@ -15,7 +15,6 @@ namespace BusinessLayer.Abstract
         void Add(Like entity);
         List<Like> GetList(Expression<Func<Like, bool>> obj = null);
         Like GetByFilter(Expression<Func<Like, bool>> obj);
-        bool varmi(int id);
         void Save();
 
     }

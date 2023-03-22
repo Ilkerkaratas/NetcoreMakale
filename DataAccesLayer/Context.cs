@@ -17,6 +17,7 @@ namespace DataAccesLayer
         {
             optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDB; database=İlkerMakaleDb;integrated security=true;");
         }
+       
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Makale> makales{ get; set; }
