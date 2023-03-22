@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccesLayer
 {
     //veri tabanı ile bağlantı kurucak context sınıfım
-    //Not: tablolar arası ilişkiler yapılmamasının sebebi benden öyle istenmesi.
+
     public class Context : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
