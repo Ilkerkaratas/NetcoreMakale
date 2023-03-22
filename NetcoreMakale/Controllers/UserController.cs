@@ -49,7 +49,7 @@ namespace NetcoreMakale.Controllers
                 {
                     if (file != null)
                     {
-                        if (eimage != null)
+                        if (eimage != null && eimage!="Default.jpeg")
                         {
                             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
                             if (System.IO.File.Exists(path))
@@ -117,7 +117,7 @@ namespace NetcoreMakale.Controllers
                     yorum_manager.Delete(x => x.UserID == item.YorumID);
                 }
             }
-            if (user.KullaniciResim is not null)
+            if (user.KullaniciResim is not null && user.KullaniciResim!="Default.jpeg")
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", user.KullaniciResim);
                 if (System.IO.File.Exists(path))
