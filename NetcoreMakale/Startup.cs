@@ -49,6 +49,7 @@ namespace NetcoreMakale
           //Baþlangýçta veritabaný yoksa oluþtur ve admin ekle
             using (var context = new Context())
             {
+                
                 context.Database.Migrate();
                 if (!context.users.Any())
                 {

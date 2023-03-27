@@ -107,14 +107,14 @@ namespace NetcoreMakale.Controllers
             {
                 foreach (var item in makale)
                 {
-                    makale_manager.Delete(x => x.UserID == item.MakaleID);
+                    makale_manager.Delete(x => x.UserID == item.UserID);
                 }
             }
             if (yorum is not null)
             {
                 foreach (var item in yorum)
                 {
-                    yorum_manager.Delete(x => x.UserID == item.YorumID);
+                    yorum_manager.Delete(x => x.UserID == item.UserID);
                 }
             }
             if (user.KullaniciResim is not null && user.KullaniciResim!="Default.jpeg")
@@ -125,15 +125,16 @@ namespace NetcoreMakale.Controllers
                     System.IO.File.Delete(path);
                 }
             }
-            user_manager.Delete(x => x.UserID == id);
+            
             if (User.IsInRole("Admin"))
             {
-               
+                user_manager.Delete(x => x.UserID == id);
                 return RedirectToAction("");
             }
             else
             {
-               return RedirectToAction("Home","Index");
+                user_manager.Delete(x => x.UserID == id);
+                return RedirectToAction("Index","Home");
             }
         }
         [Authorize(Roles = "Admin")]
