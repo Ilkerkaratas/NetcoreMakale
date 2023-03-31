@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "MakaleDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string takip = "";
+    if (ViewBag.takip is not null)
+    {
+       takip = ViewBag.takip;
+    }
+
 }
 @model EntityLayer.Makale
 
@@ -23,11 +29,16 @@
 
 
 
-                       
-                            @Html.ActionLink("Beğeni " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
-                       {
-                           style = "Color:" + color(ViewBag.like)
-                       })
+
+                        @Html.ActionLink("Beğeni " + Model._Like, "MakaleLike", new { makaleID = Model.MakaleID }, new
+                   {
+                       style = "Color:" + color(ViewBag.like)
+                   })
+                        
+                        @Html.ActionLink("Takip"+ takip, "Takip", new { userid = Model.UserID, MakaleID = Model.MakaleID }, new
+                   {
+                       style = "Color:" + color2(ViewBag.follow)
+                   })
 
 
 
@@ -78,6 +89,17 @@
 
 @{
     string color(bool x)
+    {
+        if (x == false)
+        {
+            return "Black";
+        }
+        else
+        {
+            return "Blue";
+        }
+    }
+    string color2(bool x)
     {
         if (x == false)
         {

@@ -24,6 +24,7 @@ namespace EntityLayer
         [Required(ErrorMessage ="Bu alan boþ geçilemez")]
         public string Sifre { get; set; }
         public string role { get; set; }
-       
+        public int takipcisayisi { get; set; }
+
     }
 }

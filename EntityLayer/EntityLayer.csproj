@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Contact.cs" />
+    <Compile Include="Follow.cs" />
     <Compile Include="Like.cs" />
     <Compile Include="Makale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

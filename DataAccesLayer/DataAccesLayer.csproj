@@ -169,6 +169,7 @@
   <ItemGroup>
     <Compile Include="Abstract\ICategoryDAL.cs" />
     <Compile Include="Abstract\IContactDAL.cs" />
+    <Compile Include="Abstract\IFollowDAL.cs" />
     <Compile Include="Abstract\IGenericDAL.cs" />
     <Compile Include="Abstract\ILikeDAL.cs" />
     <Compile Include="Abstract\IMakaleDAL.cs" />
@@ -199,10 +200,15 @@
     <Compile Include="Migrations\20230320055433_Contactmig3.designer.cs">
       <DependentUpon>20230320055433_Contactmig3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20230331112719_mig5.cs" />
+    <Compile Include="Migrations\20230331112719_mig5.designer.cs">
+      <DependentUpon>20230331112719_mig5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ContextModelSnapshot.cs" />
     <Compile Include="Repostories\CategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repostories\ContactRepository.cs" />
+    <Compile Include="Repostories\FollowRepository.cs" />
     <Compile Include="Repostories\GenericRepository.cs" />
     <Compile Include="Repostories\LikeRepository.cs" />
     <Compile Include="Repostories\MakaleRepository.cs" />

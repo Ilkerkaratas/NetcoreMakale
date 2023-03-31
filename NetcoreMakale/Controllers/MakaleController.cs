@@ -68,8 +68,7 @@ namespace NetcoreMakale.Controllers
 
             string ImageName = null;
 
-            if (eimage != ImageName)
-            {
+            
                 if (file != null)
                 {
                     if (eimage != null)
@@ -80,7 +79,7 @@ namespace NetcoreMakale.Controllers
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                     {
                         ImageName = $@"{Guid.NewGuid()}.jpeg";
-                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", ImageName);
 
                         // using Kullanmak demek.
                         //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
@@ -93,7 +92,7 @@ namespace NetcoreMakale.Controllers
                     }
                 }
 
-            }
+            
             if (ImageName != null)
             {
                 eimage = ImageName;

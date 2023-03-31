@@ -61,6 +61,14 @@ namespace NetcoreMakale
                     context.users.Add(user);
                     context.SaveChanges();
                 }
+                if (!context.Categories.Any())
+                {
+                    Category category = new Category();
+                    category.CategoryName = "Genel";
+                    category.CategoryStatus = true;
+                    context.Categories.Add(category);
+                    context.SaveChanges();
+                }
                 
             }
             if (env.IsDevelopment())

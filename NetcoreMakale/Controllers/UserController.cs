@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NetcoreMakale.Controllers
 {
-    
+
     public class UserController : Controller
     {
 
@@ -49,7 +49,7 @@ namespace NetcoreMakale.Controllers
                 {
                     if (file != null)
                     {
-                        if (eimage != null && eimage!="Default.jpeg")
+                        if (eimage != null && eimage != "Default.jpeg")
                         {
                             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
                             if (System.IO.File.Exists(path))
@@ -117,7 +117,7 @@ namespace NetcoreMakale.Controllers
                     yorum_manager.Delete(x => x.UserID == item.UserID);
                 }
             }
-            if (user.KullaniciResim is not null && user.KullaniciResim!="Default.jpeg")
+            if (user.KullaniciResim is not null && user.KullaniciResim != "Default.jpeg")
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", user.KullaniciResim);
                 if (System.IO.File.Exists(path))
@@ -125,7 +125,7 @@ namespace NetcoreMakale.Controllers
                     System.IO.File.Delete(path);
                 }
             }
-            
+
             if (User.IsInRole("Admin"))
             {
                 user_manager.Delete(x => x.UserID == id);
@@ -134,7 +134,7 @@ namespace NetcoreMakale.Controllers
             else
             {
                 user_manager.Delete(x => x.UserID == id);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
         }
         [Authorize(Roles = "Admin")]
@@ -148,30 +148,34 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user, IFormFile file)
         {
-            if (file != null)
+            var d = user_manager.GetByFilter(x => x.KullaniciAdi == user.KullaniciAdi);
+            if (d is null)
             {
-                if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
-                { 
-                    string ImageName = $@"{Guid.NewGuid()}.jpeg";
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
-
-                    // using Kullanmak demek.
-                    //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
-                    using (var stream = new FileStream(path, FileMode.Create))
+                if (file != null)
+                {
+                    if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                     {
-                        await file.CopyToAsync(stream);
+                        string ImageName = $@"{Guid.NewGuid()}.jpeg";
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\UserImg", ImageName);
+
+                        // using Kullanmak demek.
+                        //var stream =new FileStream oluşuturup path ve filemode.create diyoruz.
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        user.KullaniciResim = ImageName;
                     }
-                    user.KullaniciResim = ImageName;
                 }
-            }
-            //user ıd invalid geliyor...
-            if (ModelState.ErrorCount>1)
-            {
-                return View();
-            }
+                //user ıd invalid geliyor...
+                if (ModelState.ErrorCount > 1)
+                {
+                    return View();
+                }
 
-            user_manager.Add(user);
-
+                user_manager.Add(user);
+            }
+           
             return RedirectToAction("");
         }
         [Authorize(Roles = "Admin,User")]
@@ -179,9 +183,9 @@ namespace NetcoreMakale.Controllers
         //Kullanıcı ayarları sayfası
         public IActionResult UserOp()
         {
-            var value = user_manager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+            var value = user_manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             return View(value);
         }
-      
+
     }
 }

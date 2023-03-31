@@ -25,6 +25,8 @@ namespace NetcoreMakale.Controllers
         LikeManager LikeManager = new LikeManager(new LikeRepository());
         ContactManager ContactManager = new ContactManager(new ContactRepository());
         Categorymanager categorymanager = new Categorymanager(new CategoryRepository());
+        FollowManager followManager = new FollowManager(new FollowRepository());
+
         [HttpGet]
         public IActionResult Contact()
         {
@@ -95,6 +97,9 @@ namespace NetcoreMakale.Controllers
         {
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID==id);
+            var model = M_Manager.GetByFilter(x=>x.MakaleID==id);
+            var follow = followManager.GetByFilter(x=>x.TakiEdenID==Kullanıcı.UserID && x.TakipEdilenID== model.UserID);
+            var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
             if (like is not null)
             {
                 ViewBag.like = like.Lİke_;
@@ -103,8 +108,17 @@ namespace NetcoreMakale.Controllers
             {
                 ViewBag.like = false;
             }
-            var model = M_Manager.GetByFilter(x => x.MakaleID == id);
-            var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
+            if (follow is not null)
+            {
+                ViewBag.follow = follow.statu;
+            }
+            else
+            {
+                ViewBag.follow = false;
+            }
+
+
+            ViewBag.takip = user.takipcisayisi.ToString() ;
             ViewBag.UserName = user.KullaniciAdi;
             return View(model);
         }
@@ -119,8 +133,12 @@ namespace NetcoreMakale.Controllers
             var Kullanıcı = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
             //Giriş yapan kullanıcının ilgili makelyle ilgili like bilgileri.
             var like = LikeManager.GetByFilter(x => x.UserID == Kullanıcı.UserID && x.MakaleID == MakaleId);
+            var model = M_Manager.GetByFilter(x => x.MakaleID == MakaleId);
+            var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
+            var takip = followManager.GetByFilter(x=>x.TakipEdilenID==model.UserID && x.TakiEdenID==Kullanıcı.UserID);
             //kullanıcının like atıp atmadığı bilgisi
             ViewBag.like = like.Lİke_;
+            ViewBag.follow = takip.statu;
             //Kullanıcının User idsi
             int userID = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name).UserID;
             Yorum y = new Yorum();
@@ -129,8 +147,9 @@ namespace NetcoreMakale.Controllers
             y.yorum_text = yorum;
 
             yorum_M.Add(y);
-            var model = M_Manager.GetByFilter(x => x.MakaleID == MakaleId);
-            var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
+            
+           
+            ViewBag.takip = user.takipcisayisi.ToString() ;
             ViewBag.UserName = user.KullaniciAdi;
             return View(model);
         }
@@ -180,6 +199,43 @@ namespace NetcoreMakale.Controllers
 
             M_Manager.Update(makale);
 
+            return RedirectToAction("MakaleDetail", new { id = MakaleID });
+        }
+        public IActionResult Takip(int userid, int MakaleID)
+        {
+            var takipeden = User_Manager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
+            var takipedilen = User_Manager.GetByFilter(x=>x.UserID== userid);
+            var takip = followManager.GetByFilter(x=>x.TakiEdenID==takipeden.UserID && x.TakipEdilenID==takipedilen.UserID);
+            if(takip is null)
+            {
+                Follow follow = new Follow();
+                follow.TakiEdenID = takipeden.UserID;
+                follow.TakipEdilenID = takipedilen.UserID;
+                follow.statu = true;
+                followManager.Add(follow);
+                takipedilen.takipcisayisi++;
+            }
+            else
+            {
+                if (takip.statu != true)
+                {
+                    takipedilen.takipcisayisi++;
+                    takip.statu = true;
+
+                }
+                else if (takipedilen.takipcisayisi != 0)
+                {
+                    takip.statu = false;
+                    takipedilen.takipcisayisi--;
+                }
+                else
+                {
+                    takipedilen.takipcisayisi++;
+                    takip.statu= true;
+                }
+                followManager.Update(takip);
+            }
+            User_Manager.Update(takipedilen);
             return RedirectToAction("MakaleDetail", new { id = MakaleID });
         }
         public IActionResult Category_Makale(int id)
