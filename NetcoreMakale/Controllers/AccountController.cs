@@ -94,8 +94,10 @@ namespace NetcoreMakale.Controllers
         [HttpPost]
         public IActionResult Register(User user)
         {
-            //kullanıcı adı kullanılıyorsa hata vermesi için scripte değer gönderiyorum.
-            //not: 0 gönderince script düzgün çalışmadı 
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
             ViewBag.hata = 1;
             var control = manager.GetByFilter(x=>x.KullaniciAdi==user.KullaniciAdi);
             if (control == null)

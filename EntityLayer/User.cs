@@ -19,7 +19,7 @@ namespace EntityLayer
 
         public string KullaniciResim { get; set; }
 
-        [StringLength(70,ErrorMessage ="Þifre maksimim 70 karakterden oluþabilir !!")]
+        [StringLength(20,ErrorMessage ="Þifre maksimim 20 karakterden oluþabilir !!")]
         [MinLength(10,ErrorMessage ="Þifre minimum 10 karakterden oluþmalý!!")]
         [Required(ErrorMessage ="Bu alan boþ geçilemez")]
         public string Sifre { get; set; }

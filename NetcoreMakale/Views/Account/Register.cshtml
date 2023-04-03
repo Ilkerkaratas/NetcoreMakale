@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +16,7 @@
     <!-- Main css -->
     <link rel="stylesheet" href="~/Kayıt/css/style.css">
 </head>
-<body onload="hata()">
+<body onload="hata()" >
 
     <div class="main">
 
@@ -29,15 +28,17 @@
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
                             <input type="text" class="form-input" asp-for="KullaniciAdi" placeholder="Your Name" />
+
                         </div>
-                    
-                        
+                        @Html.ValidationMessageFor(u => u.KullaniciAdi, null, new { @class = "text-danger" })
+
                         <div class="form-group">
                             <input type="password" class="form-input" asp-for="Sifre" id="re_password" placeholder="Password" />
+
                         </div>
-                       
+                        @Html.ValidationMessageFor(u => u.Sifre, null, new { @class = "text-danger" })
                         <div class="form-group">
-                            <input type="submit"  class="form-submit" />
+                            <input type="submit" class="form-submit" />
                         </div>
                     </form>
                     <p class="loginhere">

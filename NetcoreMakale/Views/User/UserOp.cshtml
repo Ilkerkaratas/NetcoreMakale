@@ -32,12 +32,14 @@
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="KullaniciAdi" placeholder="@Model.KullaniciAdi" value="@Model.KullaniciAdi">
+                @Html.ValidationMessageFor(u=>u.KullaniciAdi, null, new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Şifre</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" asp-for="Sifre" type="text" placeholder="@Model.Sifre" value="@Model.Sifre">
+                @Html.ValidationMessageFor(u => u.Sifre, null, new { @class = "text-danger" })
             </div>
         </div>
         @if (User.Identity.Name == "Admin")
@@ -46,10 +48,8 @@
                 <label class="col-sm-12 col-md-2 col-form-label">Role</label>
                 <div class="col-sm-12 col-md-10">
                     <select asp-for="role" class="custom-select col-12">
-                        <option selected="" value="@Model.role">Yazar</option>
+                        <option selected="" value="@Model.role">User</option>
                         <option value="Admin">Admin</option>
-                        <option value="User">User</option>
-
                     </select>
                 </div>
             </div>
