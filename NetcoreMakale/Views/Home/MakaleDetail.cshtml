@@ -5,7 +5,7 @@
     string takip = "";
     if (ViewBag.takip is not null)
     {
-       takip = ViewBag.takip;
+        takip = ViewBag.takip;
     }
 
 }
@@ -19,7 +19,7 @@
         <div class="page-content">
             <div class="card">
                 <div class="card-header pt-0">
-                    <h3 class="card-title mb-4" style="text-align:center">@Model.MakaleBaşlik</h3>
+
                     <div class="blog-media mb-4">
                         <img src="~/MakaleImg/@Model.MakaleResim" alt="" class="w-100">
 
@@ -34,8 +34,8 @@
                    {
                        style = "Color:" + color(ViewBag.like)
                    })
-                        
-                        @Html.ActionLink("Takip"+ takip, "Takip", new { userid = Model.UserID, MakaleID = Model.MakaleID }, new
+
+                        @Html.ActionLink("Takip" + takip, "Takip", new { userid = Model.UserID, MakaleID = Model.MakaleID }, new
                    {
                        style = "Color:" + color2(ViewBag.follow)
                    })
@@ -45,7 +45,12 @@
                     </small>
                 </div>
                 <div class="card-body border-top">
-                    <p class="my-3"> <pre style="white-space: pre-wrap;"  class="my-3">@Model.MakaleAciklama</pre></p>
+                    <p class="my-3">
+                        <pre style="white-space: pre-wrap;" class="my-3">
+                        <h3 class="card-title mb-4" style="text-align:center">@Model.MakaleBaşlik</h3>
+   @Model.MakaleAciklama
+                        </pre>
+                    </p>
 
                 </div>
 
