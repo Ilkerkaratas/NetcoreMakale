@@ -2,6 +2,7 @@
 using DataAccesLayer.Repostories;
 using EntityLayer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -74,7 +75,8 @@ namespace NetcoreMakale.Controllers
                     if (eimage != null)
                     {
                         ImageName = file.FileName;
-                        System.IO.File.Delete(@"wwwroot\UserImg\" + eimage);
+                    var deletepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", eimage);
+                    System.IO.File.Delete(deletepath);
                     }
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
                     {
@@ -132,7 +134,9 @@ namespace NetcoreMakale.Controllers
                 }
                 if (makale.MakaleResim is not null)
                 {
-                    System.IO.File.Delete(@"wwwroot\UserImg\" + makale.MakaleResim);
+
+                    var deletepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\MakaleImg", makale.MakaleResim);
+                    System.IO.File.Delete(deletepath);
                 }
                 manager.Delete(x => x.MakaleID == id);
             }

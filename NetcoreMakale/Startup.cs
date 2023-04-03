@@ -47,32 +47,9 @@ namespace NetcoreMakale
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
         {
-          //Baþlangýçta veritabaný yoksa oluþtur ve admin ekle
-            using (var context = new Context())
-            {
-                
-                context.Database.Migrate();
-                if (!context.users.Any())
-                {
-                    HashPassword hashPassword = new HashPassword();
-                    User user = new User();
-                    user.KullaniciAdi = "Admin";
-                    user.Sifre =hashPassword.Encode("Admin");
-                    user.role = "Admin";
-                    user.KullaniciResim = "Default.jpeg";
-                    context.users.Add(user);
-                    context.SaveChanges();
-                }
-                if (!context.Categories.Any())
-                {
-                    Category category = new Category();
-                    category.CategoryName = "Genel";
-                    category.CategoryStatus = true;
-                    context.Categories.Add(category);
-                    context.SaveChanges();
-                }
-                
-            }
+            //Baþlangýçta veritabaný yoksa oluþtur ve admin ekle
+            SeedData seedData = new SeedData();
+            seedData.Seed();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
