@@ -30,7 +30,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Açıklama</label>
             <div class="col-sm-12 col-md-10">
-                <textarea class="form-control" style="height:auto; width:auto" asp-for="MakaleAciklama" type="text" ></textarea>
+                <textarea class="form-control" style="height:auto;" asp-for="MakaleAciklama" type="text" ></textarea>
                 @Html.ValidationMessageFor(m => m.MakaleAciklama, null, new { @class = "text-danger" })
             </div>
         </div>

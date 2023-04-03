@@ -84,8 +84,11 @@ namespace NetcoreMakale.Controllers
             {
                 return View(user);
             }
+            HashPassword hashPassword = new HashPassword();
+            user.Sifre = hashPassword.Encode(user.Sifre);
             user_manager.Update(user);
             var value = user_manager.GetByFilter(x => x.UserID == user.UserID);
+            value.Sifre = hashPassword.Decode(value.Sifre);
             return View(value);
         }
         [Authorize(Roles = "Admin,User")]
@@ -183,7 +186,9 @@ namespace NetcoreMakale.Controllers
         //Kullanıcı ayarları sayfası
         public IActionResult UserOp()
         {
+            HashPassword hashPassword = new HashPassword();
             var value = user_manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name);
+            value.Sifre = hashPassword.Decode(value.Sifre);
             return View(value);
         }
 

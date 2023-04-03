@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NetcoreMakale.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,10 @@ namespace NetcoreMakale
                 context.Database.Migrate();
                 if (!context.users.Any())
                 {
+                    HashPassword hashPassword = new HashPassword();
                     User user = new User();
                     user.KullaniciAdi = "Admin";
-                    user.Sifre = "Admin";
+                    user.Sifre =hashPassword.Encode("Admin");
                     user.role = "Admin";
                     user.KullaniciResim = "Default.jpeg";
                     context.users.Add(user);

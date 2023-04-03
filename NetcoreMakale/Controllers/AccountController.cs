@@ -10,6 +10,7 @@ using BusinessLayer.Concrete;
 using DataAccesLayer.Repostories;
 using Microsoft.AspNetCore.Identity;
 using EntityLayer;
+using NetcoreMakale.Models;
 
 namespace NetcoreMakale.Controllers
 {
@@ -38,10 +39,10 @@ namespace NetcoreMakale.Controllers
                 {
                     return View();
                 }
-
+                HashPassword hashPassword = new HashPassword();
                 ClaimsIdentity identity = null;
                 bool isAuthenticate = false;
-                var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre == Sifre);
+                var user = manager.GetByFilter(x => x.KullaniciAdi == Ad && x.Sifre == hashPassword.Encode(Sifre));
                 if (user is not null)
                 {
                     @ViewBag.f = 0;
@@ -99,8 +100,10 @@ namespace NetcoreMakale.Controllers
             var control = manager.GetByFilter(x=>x.KullaniciAdi==user.KullaniciAdi);
             if (control == null)
             {
+                HashPassword hashPassword = new HashPassword();
                 user.role = "User";
                 user.KullaniciResim = "Default.jpeg";
+                user.Sifre = hashPassword.Encode(user.Sifre);
                 manager.Add(user);
                 return RedirectToAction("Login", "Account");
             }

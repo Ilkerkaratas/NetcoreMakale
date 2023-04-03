@@ -204,6 +204,10 @@
     <Compile Include="Migrations\20230331112719_mig5.designer.cs">
       <DependentUpon>20230331112719_mig5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20230403083855_mig15.cs" />
+    <Compile Include="Migrations\20230403083855_mig15.designer.cs">
+      <DependentUpon>20230403083855_mig15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ContextModelSnapshot.cs" />
     <Compile Include="Repostories\CategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
