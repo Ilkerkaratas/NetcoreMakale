@@ -39,7 +39,7 @@ namespace NetcoreMakale.Controllers
         }
         [Authorize(Roles = "Admin,User")]
         [HttpPost]
-        public async Task<IActionResult> UserEdit(User user, IFormFile file)
+        public async Task<IActionResult> UserOp(User user, IFormFile file)
         {
             string eimage = user.KullaniciResim;
             if (file != null)

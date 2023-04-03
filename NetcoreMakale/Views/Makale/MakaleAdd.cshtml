@@ -18,7 +18,7 @@
             <input type="hidden" asp-for="_Like" />
             <input type="hidden" asp-for="MakaleStatus" />
             <label class="col-sm-12 col-md-2 col-form-label">Makale Resim</label>
-            <input type="file" name="file" / class="form-control">
+            <input type="file" name="file" class="form-control"  accept="image/*">
            
             <label class="col-sm-12 col-md-2 col-form-label">Makale Başlik</label>
             <div class="col-sm-12 col-md-10">
@@ -30,7 +30,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Açıklama</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" asp-for="MakaleAciklama" type="text">
+                <textarea class="form-control" style="height:auto; width:auto" asp-for="MakaleAciklama" type="text" ></textarea>
                 @Html.ValidationMessageFor(m => m.MakaleAciklama, null, new { @class = "text-danger" })
             </div>
         </div>

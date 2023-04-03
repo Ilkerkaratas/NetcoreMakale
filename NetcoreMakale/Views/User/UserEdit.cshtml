@@ -16,7 +16,7 @@
         
         <div class="form-group row">
             <img src="~/UserImg/@Model.KullaniciResim" style="width:auto;height:200px" />
-            <input type="file" id="file" name="file" class="form-control col-6" />
+            <input type="file"  accept="image/*" id="file" name="file" class="form-control col-6" />
             <input type="hidden" asp-for="UserID" value="@Model.UserID" />
             <input type="hidden" asp-for="KullaniciResim" value="@Model.KullaniciResim" />
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Adı</label>

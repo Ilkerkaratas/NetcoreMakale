@@ -14,7 +14,7 @@
 
 
 <div class="pd-20 card-box mb-30">
-    <form method="post" enctype="multipart/form-data" asp-action="UserEdit" asp-controller="User">
+    <form method="post" enctype="multipart/form-data" asp-action="UserOp" asp-controller="User">
 
         <div class="form-group row">
             <img src="~/UserImg/@Model.KullaniciResim" style="width:auto;height:200px" />
@@ -23,7 +23,7 @@
             
             <label class="col-sm-12 col-md-2 col-form-label">Kullanıcı Resim</label>
             <div class="col-sm-12 col-md-10">
-                <input type="file" id="file" name="file" class="" />
+                <input type="file" id="file"  accept="image/*" name="file" class="" />
             </div>
         </div>
         <div class="form-group row">

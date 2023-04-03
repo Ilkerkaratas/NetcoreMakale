@@ -20,7 +20,7 @@
             <input type="hidden" asp-for="MakaleStatus" value="@Model.MakaleStatus" />
             <input type="hidden" asp-for="MakaleResim" value="@Model.MakaleResim" />
             <label class="col-sm-12 col-md-2 col-form-label">Makale Resim</label>
-            <input type="file" name="file" / class="form-control">
+            <input type="file" name="file"  accept="image/*" class="form-control">
             <label class="col-sm-12 col-md-2 col-form-label">Makale Başlik</label>
             <div class="col-sm-12 col-md-10">
                 <input class="form-control" type="text" asp-for="MakaleBaşlik" placeholder="@Model.MakaleBaşlik" value="@Model.MakaleBaşlik">
@@ -30,7 +30,7 @@
         <div class="form-group row">
             <label class="col-sm-12 col-md-2 col-form-label">Açıklama</label>
             <div class="col-sm-12 col-md-10">
-                <input class="form-control" asp-for="MakaleAciklama" type="text" placeholder="@Model.MakaleAciklama" value="@Model.MakaleAciklama">
+                <textarea class="form-control" asp-for="MakaleAciklama" type="text" placeholder="@Model.MakaleAciklama" value="@Model.MakaleAciklama" style="width:auto;height:auto;"></textarea>
                 @Html.ValidationMessageFor(m => m.MakaleAciklama, null, new { @class = "text-danger" })
             </div>
         </div>

@@ -31,7 +31,8 @@ namespace EntityLayer
         
 
         public int? UserID { get; set; }
-       
         
+
+
     }
 }

@@ -30,6 +30,7 @@ namespace NetcoreMakale.Controllers
         [HttpGet]
         public IActionResult Contact()
         {
+            
             return View();
         }
         [HttpPost]
@@ -203,6 +204,7 @@ namespace NetcoreMakale.Controllers
         }
         public IActionResult Takip(int userid, int MakaleID)
         {
+            //makale detail kısmında actionlinkle geliyo buraya
             var takipeden = User_Manager.GetByFilter(x=>x.KullaniciAdi==User.Identity.Name);
             var takipedilen = User_Manager.GetByFilter(x=>x.UserID== userid);
             var takip = followManager.GetByFilter(x=>x.TakiEdenID==takipeden.UserID && x.TakipEdilenID==takipedilen.UserID);
