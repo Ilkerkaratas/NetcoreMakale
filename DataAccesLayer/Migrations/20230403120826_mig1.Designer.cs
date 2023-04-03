@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccesLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230320055314_Contactmig2")]
-    partial class Contactmig2
+    [Migration("20230403120826_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,17 +50,45 @@ namespace DataAccesLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContactMail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contacttext")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContactID");
 
                     b.ToTable("contacts");
+                });
+
+            modelBuilder.Entity("EntityLayer.Follow", b =>
+                {
+                    b.Property<int>("followID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TakiEdenID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TakipEdilenID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("statu")
+                        .HasColumnType("bit");
+
+                    b.HasKey("followID");
+
+                    b.ToTable("follows");
                 });
 
             modelBuilder.Entity("EntityLayer.Like", b =>
@@ -137,11 +165,14 @@ namespace DataAccesLayer.Migrations
 
                     b.Property<string>("Sifre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasColumnType("nvarchar(90)")
+                        .HasMaxLength(90);
 
                     b.Property<string>("role")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("takipcisayisi")
+                        .HasColumnType("int");
 
                     b.HasKey("UserID");
 
@@ -162,9 +193,7 @@ namespace DataAccesLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("yorum_text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("YorumID");
 

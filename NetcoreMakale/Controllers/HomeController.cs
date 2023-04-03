@@ -138,8 +138,23 @@ namespace NetcoreMakale.Controllers
             var user = User_Manager.GetByFilter(x => x.UserID == model.UserID);
             var takip = followManager.GetByFilter(x=>x.TakipEdilenID==model.UserID && x.TakiEdenID==Kullanıcı.UserID);
             //kullanıcının like atıp atmadığı bilgisi
-            ViewBag.like = like.Lİke_;
-            ViewBag.follow = takip.statu;
+            if (like is not null) 
+            {
+                ViewBag.like = like.Lİke_;
+            }
+            else
+            {
+                ViewBag.like = false;
+            }
+            
+            if(takip is not null)
+            {
+                ViewBag.follow = takip.statu;
+            }
+            else
+            {
+                ViewBag.follow = false;
+            }
             //Kullanıcının User idsi
             int userID = User_Manager.GetByFilter(x => x.KullaniciAdi == User.Identity.Name).UserID;
             Yorum y = new Yorum();

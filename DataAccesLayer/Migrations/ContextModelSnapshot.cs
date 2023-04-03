@@ -163,8 +163,8 @@ namespace DataAccesLayer.Migrations
 
                     b.Property<string>("Sifre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(70)")
-                        .HasMaxLength(70);
+                        .HasColumnType("nvarchar(90)")
+                        .HasMaxLength(90);
 
                     b.Property<string>("role")
                         .HasColumnType("nvarchar(max)");
@@ -191,9 +191,7 @@ namespace DataAccesLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("yorum_text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("YorumID");
 

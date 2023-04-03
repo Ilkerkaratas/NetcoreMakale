@@ -10,7 +10,7 @@
     <div class="media-body">
 
         @await Component.InvokeAsync("GetYorum_User", new { yorum = item })
-        <p>@item.yorum_text</p>
+        <pre style="white-space: pre-wrap;" class="my-3">@item.yorum_text</pre>
 
     </div>
 </div>

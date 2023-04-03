@@ -12,12 +12,43 @@ namespace DataAccesLayer.Migrations
                 {
                     CategoryID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(maxLength: 50, nullable: true),
+                    CategoryName = table.Column<string>(maxLength: 20, nullable: false),
                     CategoryStatus = table.Column<bool>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.CategoryID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "contacts",
+                columns: table => new
+                {
+                    ContactID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    subject = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    ContactMail = table.Column<string>(nullable: false),
+                    Contacttext = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_contacts", x => x.ContactID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "follows",
+                columns: table => new
+                {
+                    followID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TakiEdenID = table.Column<int>(nullable: false),
+                    TakipEdilenID = table.Column<int>(nullable: false),
+                    statu = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_follows", x => x.followID);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,8 +73,9 @@ namespace DataAccesLayer.Migrations
                     MakaleID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     _Like = table.Column<int>(nullable: false),
-                    MakaleBaşlik = table.Column<string>(maxLength: 50, nullable: true),
-                    MakaleAciklama = table.Column<string>(type: "text", nullable: true),
+                    MakaleBaşlik = table.Column<string>(maxLength: 20, nullable: false),
+                    MakaleResim = table.Column<string>(nullable: true),
+                    MakaleAciklama = table.Column<string>(nullable: false),
                     MakaleStatus = table.Column<bool>(nullable: true),
                     CategoryID = table.Column<int>(nullable: true),
                     UserID = table.Column<int>(nullable: true)
@@ -59,9 +91,11 @@ namespace DataAccesLayer.Migrations
                 {
                     UserID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    KullaniciAdi = table.Column<string>(maxLength: 50, nullable: true),
-                    Sifre = table.Column<string>(maxLength: 50, nullable: true),
-                    role = table.Column<string>(nullable: true)
+                    KullaniciAdi = table.Column<string>(maxLength: 15, nullable: false),
+                    KullaniciResim = table.Column<string>(nullable: true),
+                    Sifre = table.Column<string>(maxLength: 90, nullable: false),
+                    role = table.Column<string>(nullable: true),
+                    takipcisayisi = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,6 +122,12 @@ namespace DataAccesLayer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "contacts");
+
+            migrationBuilder.DropTable(
+                name: "follows");
 
             migrationBuilder.DropTable(
                 name: "Like");

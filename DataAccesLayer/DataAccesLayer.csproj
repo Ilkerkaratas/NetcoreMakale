@@ -176,37 +176,9 @@
     <Compile Include="Abstract\IUserDAL.cs" />
     <Compile Include="Abstract\IYorumDAL.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Migrations\20230308061802_mig1.cs" />
-    <Compile Include="Migrations\20230308061802_mig1.designer.cs">
-      <DependentUpon>20230308061802_mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230314110743_mig2.cs" />
-    <Compile Include="Migrations\20230314110743_mig2.designer.cs">
-      <DependentUpon>20230314110743_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230315050428_mig3.cs" />
-    <Compile Include="Migrations\20230315050428_mig3.designer.cs">
-      <DependentUpon>20230315050428_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230320055011_Contactmig.cs" />
-    <Compile Include="Migrations\20230320055011_Contactmig.designer.cs">
-      <DependentUpon>20230320055011_Contactmig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230320055314_Contactmig2.cs" />
-    <Compile Include="Migrations\20230320055314_Contactmig2.designer.cs">
-      <DependentUpon>20230320055314_Contactmig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230320055433_Contactmig3.cs" />
-    <Compile Include="Migrations\20230320055433_Contactmig3.designer.cs">
-      <DependentUpon>20230320055433_Contactmig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230331112719_mig5.cs" />
-    <Compile Include="Migrations\20230331112719_mig5.designer.cs">
-      <DependentUpon>20230331112719_mig5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20230403083855_mig15.cs" />
-    <Compile Include="Migrations\20230403083855_mig15.designer.cs">
-      <DependentUpon>20230403083855_mig15.cs</DependentUpon>
+    <Compile Include="Migrations\20230403120826_mig1.cs" />
+    <Compile Include="Migrations\20230403120826_mig1.designer.cs">
+      <DependentUpon>20230403120826_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ContextModelSnapshot.cs" />
     <Compile Include="Repostories\CategoryRepository.cs" />
